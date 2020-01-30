@@ -32,8 +32,8 @@ async def av(ctx):
 
     av = html.select('.avatar > img.my')[0]['src']
     av_url = "https://dota2.ru" + str(av)
-    await Bot.say(av_url)
-    await Bot.say(usrpg)
+    await ctx.send(av_url)
+    await ctx.send(usrpg)
 
 
 #Embed IMG
@@ -42,6 +42,10 @@ async def img(ctx):
     testm = "check"
     emb = discord.Embed(title="testm", colour=0x39d0d6)
     emb.set_image(url="https://dota2.ru/img/forum/avatars/l/638/638867.jpg")
-    await Bot.say(embed = emb)
+    await ctx.send(embed = emb)
+   
+@Bot.command(pass_context = True)
+async def cmds(ctx):
+    await ctx.send("Тут есть: test, img, av")
 
 Bot.run('NjcyMDM1ODQwNDI3Mjk0NzI0.XjFoNw.dyXrx-ZKzgC47v99Lqk0STIX9Yg')
