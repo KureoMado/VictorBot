@@ -1,5 +1,5 @@
 discord.py
-requirements
+requests
 requests
 random
 bs4
