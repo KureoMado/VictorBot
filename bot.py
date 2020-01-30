@@ -51,3 +51,4 @@ async def img(ctx):
     await Bot.say(embed = emb)
 
 token = os.environ.get('BOT_TOKEN')
+Bot.run(str(token))
