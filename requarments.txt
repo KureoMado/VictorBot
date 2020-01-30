@@ -1,0 +1,7 @@
+discord.py
+requirements
+requests
+random
+bs4
+beautifulsoup4
+os
