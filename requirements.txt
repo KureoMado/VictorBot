@@ -1,7 +1,4 @@
 discord.py
 requests
-requests
-random
 bs4
 beautifulsoup4
-os
