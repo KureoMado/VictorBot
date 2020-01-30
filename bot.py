@@ -19,7 +19,7 @@ async def on_ready():
 #Testment
 @Bot.command(pass_context = True)
 async def test(ctx):
-    await Bot.say("Test passed")
+    await ctx.send("Test passed")
 
 @Bot.command(pass_context = True)
 async def av(ctx):
