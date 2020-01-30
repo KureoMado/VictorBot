@@ -7,6 +7,7 @@ import time
 import random
 import os
 from bs4 import BeautifulSoup as BS
+#BOTS COMMANDS
 
 Bot = commands.Bot(command_prefix='v!')
 
@@ -43,5 +44,4 @@ async def img(ctx):
     emb.set_image(url="https://dota2.ru/img/forum/avatars/l/638/638867.jpg")
     await Bot.say(embed = emb)
 
-token = os.environ.get('BOT_TOKEN', none)
-Bot.run(str(token))
+Bot.run('NjcyMDM1ODQwNDI3Mjk0NzI0.XjFoNw.dyXrx-ZKzgC47v99Lqk0STIX9Yg')
