@@ -48,4 +48,5 @@ async def img(ctx):
 async def cmds(ctx):
     await ctx.send("Тут есть: test, img, av")
 
-Bot.run('NjcyMDM1ODQwNDI3Mjk0NzI0.XjFoNw.dyXrx-ZKzgC47v99Lqk0STIX9Yg')
+token = os.environ.get('BOT_TOKEN')
+Bot.run(str(token))
