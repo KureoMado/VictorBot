@@ -8,13 +8,6 @@ import random
 import os
 from bs4 import BeautifulSoup as BS
 
-#PARSER
-
-#avi = av.select('img')
-#ava = avi[0]['src']
-
-#BOTS COMMANDS
-
 Bot = commands.Bot(command_prefix='v!')
 
 #Turn On notification
@@ -50,5 +43,5 @@ async def img(ctx):
     emb.set_image(url="https://dota2.ru/img/forum/avatars/l/638/638867.jpg")
     await Bot.say(embed = emb)
 
-token = os.environ.get('BOT_TOKEN')
+token = os.environ.get('BOT_TOKEN', none)
 Bot.run(str(token))
