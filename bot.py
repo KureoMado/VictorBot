@@ -22,7 +22,7 @@ async def on_message(ctx):
     isbot = ctx.author.bot
     if isbot == False:
         if ctx.content == "<:PuckHmm:672534849776779302>":
-            await Bot.send_message(channel, "<:PuckHmm:672534849776779302>")
+            await ctx.send_message(channel, "<:PuckHmm:672534849776779302>")
     await Bot.process_commands(ctx)
 
 #Testment
