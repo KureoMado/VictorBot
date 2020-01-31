@@ -15,6 +15,15 @@ Bot = commands.Bot(command_prefix='v!')
 @Bot.event
 async def on_ready():
     print("Neko bot is online")
+    
+@Bot.event
+async def on_message(ctx):
+    channel = ctx.channel
+    isbot = ctx.author.bot
+    if isbot == False:
+        if ctx.content == "<:PuckHmm:672534849776779302>":
+            await ctx.send(channel, "<:PuckHmm:672534849776779302>")
+    await Bot.process_commands(ctx)
 
 #Testment
 @Bot.command(pass_context = True)
