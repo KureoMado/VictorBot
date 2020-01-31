@@ -16,11 +16,6 @@ from bs4 import BeautifulSoup as BS
 
 Bot = commands.Bot(command_prefix='v!')
 
-#Turn On notification
-@Bot.event
-async def on_ready():
-    print("Neko bot is online")
-
 @Bot.event
 async def on_message(ctx):
     channel = ctx.channel
@@ -32,7 +27,7 @@ async def on_message(ctx):
 
 @Bot.command(pass_context = True)
 async def test(ctx):
-    await ctx.send("Test passed")
+    await Bot.say("Test passed")
 
 @Bot.command(pass_context = True)
 async def av(ctx):
