@@ -12,6 +12,7 @@ from bs4 import BeautifulSoup as BS
 #BOTS COMMANDS
 
 Bot = commands.Bot(command_prefix='v.')
+Bot.remove_command("help")
 
 #PuckHmm reaction
 @Bot.event
@@ -19,15 +20,15 @@ async def on_message(ctx):
     channel = ctx.channel
     isbot = ctx.author.bot
     if isbot == False:
-        if ctx.content == "<:PuckHmm:672534849776779302>":
-            await channel.send("<:PuckHmm:672534849776779302>")
+        if "<:PuckHmm:672534849776779302>" in ctx.content:
+            await ctx.add_reaction("<:PuckHmm:672534849776779302>")
     await Bot.process_commands(ctx)
 
 #test
 @Bot.command()
-async def version(ctx):
+async def help(ctx):
         emb = discord.Embed(title='Виктор', colour=0x33ccff)
-        emb.add_field(name='Версия: Victor@0.8(сборка от 02.02.20)', value="\nВот что я могу:\n\npat @пользователь - погладить юзера\nvictor - арт с Виктором\nТакже я фанат смайла <:PuckHmm:672534849776779302> и буду отвечать на него!")
+        emb.add_field(name='Версия: Victor@0.7.5(сборка от 02.02.20)', value="\nВот что я могу:\n\npat @пользователь - погладить юзера\nvictor - арт с Виктором\nТакже я фанат смайла <:PuckHmm:672534849776779302> и буду ставить его под все сообщения где он есть!")
         await ctx.send(embed = emb)
 
 #PAT
@@ -41,7 +42,7 @@ async def pat(ctx, member: discord.Member):
     color = imglist.CLR_LIST[color_number]
     #EMBED
     author = str(ctx.author.display_name)
-    nick = str(member.nick)
+    nick = str(member.display_name)
     title = author + " pats " + nick
     emb = discord.Embed(title=title, colour=color)
     emb.set_image(url=pat)
