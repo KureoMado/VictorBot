@@ -13,11 +13,6 @@ from bs4 import BeautifulSoup as BS
 
 Bot = commands.Bot(command_prefix='v.')
 
-#Turn On notification
-@Bot.event
-async def on_ready():
-    print("Neko bot is online")
-
 #PuckHmm reaction
 @Bot.event
 async def on_message(ctx):
@@ -30,34 +25,10 @@ async def on_message(ctx):
 
 #test
 @Bot.command()
-async def test(ctx):
-    await ctx.send("test")
-    #await ctx.send("{}".format(ctx.message.author.mention))
-
-#avatar
-@Bot.command()
-async def av(ctx):
-    usrid = random.randint(100000,700000)
-    #usrpg = 'https://dota2.ru/forum/members/' + str(usrid)
-    usrpg = 'https://dota2.ru/forum/members/' + str(usrid)
-
-    r = requests.get(usrpg)
-    html = BS(r.content, 'html.parser')
-
-    av = html.select('.avatar > img.my')[0]['src']
-    av_url = "https://dota2.ru" + str(av)
-    await ctx.send(av_url)
-    await ctx.send(usrpg)
-
-
-#Embed IMG
-@Bot.command()
-async def img(ctx):
-    testm = "check"
-    emb = discord.Embed(title="testm", colour=0x39d0d6)
-    emb.set_image(url="https://dota2.ru/img/forum/avatars/l/638/638867.jpg")
-    await ctx.send(embed = emb)
-
+async def version(ctx):
+        emb = discord.Embed(title='Виктор', colour=0x33ccff)
+        emb.add_field(name='Информация', value="\nВот что я могу:\npat @пользователь - погладить юзера\n\nvictor - арт с Виктором\n\nТакже я фанат смайла <:PuckHmm:672534849776779302> и буду отвечать на него!")
+        await ctx.send(embed = emb)
 
 #PAT
 @Bot.command()
@@ -89,7 +60,6 @@ async def victor(ctx):
     emb = discord.Embed(title=' ', colour=color)
     emb.set_image(url=victor)
     await ctx.send(embed = emb)
-
 
 token = os.environ.get('BOT_TOKEN')
 Bot.run(str(token))
