@@ -6,6 +6,7 @@ import requests
 import time
 import random
 import imglist
+import os
 from bs4 import BeautifulSoup as BS
 
 #BOTS COMMANDS
