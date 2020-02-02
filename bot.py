@@ -29,13 +29,13 @@ async def on_message(ctx):
     await Bot.process_commands(ctx)
 
 #test
-@Bot.command(pass_context = True)
+@Bot.command()
 async def test(ctx):
     await ctx.send("test")
     #await ctx.send("{}".format(ctx.message.author.mention))
 
 #avatar
-@Bot.command(pass_context = True)
+@Bot.command()
 async def av(ctx):
     usrid = random.randint(100000,700000)
     #usrpg = 'https://dota2.ru/forum/members/' + str(usrid)
@@ -51,7 +51,7 @@ async def av(ctx):
 
 
 #Embed IMG
-@Bot.command(pass_context = True)
+@Bot.command()
 async def img(ctx):
     testm = "check"
     emb = discord.Embed(title="testm", colour=0x39d0d6)
@@ -59,7 +59,7 @@ async def img(ctx):
     await ctx.send(embed = emb)
 
 
-#VICTOR
+#PAT
 @Bot.command()
 async def pat(ctx, member: discord.Member):
     #RANDOM GIF AND COLOR
@@ -69,12 +69,27 @@ async def pat(ctx, member: discord.Member):
     pat = imglist.PAT_LIST[pat_number]
     color = imglist.CLR_LIST[color_number]
     #EMBED
-    author = str(ctx.author.name)
+    author = str(ctx.author.display_name)
     nick = str(member.nick)
     title = author + " pats " + nick
     emb = discord.Embed(title=title, colour=color)
     emb.set_image(url=pat)
     await ctx.send(embed = emb)
+
+#VICTOR
+@Bot.command()
+async def victor(ctx):
+    #RANDOM GIF AND COLOR
+    v_number = random.randint(0, imglist.VICTOR_LIST_LEN)
+    clr_number = random.randint(0, imglist.CLR_LIST_LEN)
+    #GIF AND COLOR SET
+    victor = imglist.VICTOR_LIST[v_number]
+    color = imglist.CLR_LIST[clr_number]
+    #EMBED
+    emb = discord.Embed(title=' ', colour=color)
+    emb.set_image(url=victor)
+    await ctx.send(embed = emb)
+
 
 token = os.environ.get('BOT_TOKEN')
 Bot.run(str(token))
