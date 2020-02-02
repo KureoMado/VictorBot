@@ -43,7 +43,7 @@ async def pat(ctx, member: discord.Member):
     #EMBED
     author = str(ctx.author.display_name)
     nick = str(member.display_name)
-    title = author + " pats " + nick
+    title = author + " гладит " + nick + " :3"
     emb = discord.Embed(title=title, colour=color)
     emb.set_image(url=pat)
     await ctx.send(embed = emb)
