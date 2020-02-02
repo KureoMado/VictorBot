@@ -27,7 +27,7 @@ async def on_message(ctx):
 @Bot.command()
 async def version(ctx):
         emb = discord.Embed(title='Виктор', colour=0x33ccff)
-        emb.add_field(name='Информация', value="\nВот что я могу:\npat @пользователь - погладить юзера\n\nvictor - арт с Виктором\n\nТакже я фанат смайла <:PuckHmm:672534849776779302> и буду отвечать на него!")
+        emb.add_field(name='Версия: Victor@0.8(сборка от 02.02.20)', value="\nВот что я могу:\n\npat @пользователь - погладить юзера\nvictor - арт с Виктором\nТакже я фанат смайла <:PuckHmm:672534849776779302> и буду отвечать на него!")
         await ctx.send(embed = emb)
 
 #PAT
