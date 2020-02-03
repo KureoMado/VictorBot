@@ -35,7 +35,7 @@ async def thustrt(ctx):
         if src != svd and src != None:
             await ctx.send(src)
             svd = src
-        time.sleep(30)
+        time.sleep(45)
     await ctx.send('empty')
 #test
 @Bot.command()
