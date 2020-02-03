@@ -5,6 +5,7 @@ from discord.ext.commands import Bot
 import requests
 import time
 import random
+import os
 import imglist
 import rntv
 import tavern
