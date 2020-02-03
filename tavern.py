@@ -24,5 +24,3 @@ def tavern_thread():
     a = ainf[0]['href']
     href = 'https://dota2.ru/forum/' + str(a)
     return href
-
-Darsia246153STR
