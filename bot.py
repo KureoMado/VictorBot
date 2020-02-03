@@ -8,6 +8,7 @@ import random
 import os
 import imglist
 import rntv
+import tavern
 from bs4 import BeautifulSoup as BS
 
 #BOTS COMMANDS
@@ -24,7 +25,18 @@ async def on_message(ctx):
         if "<:PuckHmm:672534849776779302>" in ctx.content:
             await ctx.add_reaction("<:PuckHmm:672534849776779302>")
     await Bot.process_commands(ctx)
- 
+
+
+@Bot.command()
+async def thustrt(ctx):
+    svd = 'none'
+    while True:
+        src = tavern.tavern_thread()
+        if src != svd and src != None:
+            await ctx.send(src)
+            svd = src
+        time.sleep(30)
+    await ctx.send('empty')
 #test
 @Bot.command()
 async def help(ctx):
