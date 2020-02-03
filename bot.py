@@ -21,14 +21,14 @@ async def on_ready():
     print("Neko bot is online")
 
 @Bot.command()
-async def newthreadstart(ctx):
+async def admnwthstart(ctx):
     svd = 'none'
     while True:
         src = tavern.tavern_thread()
         if src != svd and src != None:
             await ctx.send(src)
             svd = src
-        time.sleep(30)
+        time.sleep(31)
     await ctx.send('empty')
 
 #PuckHmm reaction
