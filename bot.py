@@ -41,7 +41,7 @@ async def thustrt(ctx):
 @Bot.command()
 async def help(ctx):
         emb = discord.Embed(title='Виктор', colour=0x33ccff)
-        emb.add_field(name='Версия: 0.7.4', value="\nВот что я могу:\n\npat @пользователь - погладить юзера\nvictor - арт с Виктором\nТакже я фанат смайла <:PuckHmm:672534849776779302> и буду ставить его под все сообщения где он есть!")
+        emb.add_field(name='Версия: 0.7.4', value="\nВот что я могу:\n\npat @пользователь - погладить юзера\nvictor - арт с Виктором\nvbros - рандомный вброс с первой страницы товерны\nТакже я фанат смайла <:PuckHmm:672534849776779302> и буду ставить его под все сообщения где он есть!")
         await ctx.send(embed = emb)
 
 #PAT
