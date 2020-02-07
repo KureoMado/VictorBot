@@ -74,6 +74,7 @@ async def victor(ctx):
 
 #RANDOM THREAD
 @Bot.command()
+@commands.cooldown(1, 30, commands.BucketType.user)
 async def vbros(ctx):
     href = rntv.random_thread()
     ctxout = "Рандомный вброс с первой страницы таверны:\n" + str(href)
