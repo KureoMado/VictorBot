@@ -38,7 +38,7 @@ async def on_message(ctx):
 @Bot.command()
 async def help(ctx):
         emb = discord.Embed(title='Виктор', colour=0x33ccff)
-        emb.add_field(name='Информация:', value="\nВерсия: 0.9\n\nВот что я могу:\n\npat @пользователь - погладить юзера\nvictor - арт с Виктором\nТакже я фанат смайла <:PuckHmm:672534849776779302> и буду ставить его под все сообщения где он есть!")
+        emb.add_field(name='Информация:', value="\nВерсия: 0.9.2\n\nВот что я могу:\n\npat @пользователь - погладить юзера\nvictor - арт с Виктором\nТакже я фанат смайла <:PuckHmm:672534849776779302> и буду ставить его под все сообщения где он есть!")
         await ctx.send(embed = emb)
 
 #PAT
@@ -89,17 +89,18 @@ async def video(ctx):
 @commands.cooldown(1, 1800, commands.BucketType.user)
 @commands.has_permissions(administrator = True)
 async def moder(ctx):
-    if ctx.author != modercd:
-        links = rntv.mat_search()
-        print(links)
-        await ctx.send('Мне кажется, в этих сообщениях (всего ' + str(len(links)) + ') есть нарушения:')
+    links = rntv.mat_search()
+    print(links)
+    await ctx.send('Мне кажется, в этих сообщениях (всего ' + str(len(links)) + ') есть нарушения:')
+    if len(links) != 0:
         for i in range(len(links)):
             await ctx.send(links[i])
             time.sleep(1)
         time.sleep(2)
-        await ctx.send('Я нашел только это. {.author.mention}, пожалуйста, помогите мне улучшить бота! Если в сообщении действительно было нарушение - поставьте в реакции смайл <:MiyanoYey:672534850066055191>. Если нарушения не было ставьте - <:PuckHmm:672534849776779302>. Спасибо!'.format(ctx))
+        await ctx.send('{.author.mention}, пожалуйста, помогите мне улучшить бота! Если в сообщении действительно было нарушение - поставьте в реакции смайл <:MiyanoYey:672534850066055191>. Если нарушения не было ставьте - <:PuckHmm:672534849776779302>. Спасибо!'.format(ctx))
     else:
-        await ctx.send('Боюсь, вы уже использовали эту команду. Вам придется подождать!')
+        await ctx.send('Похоже, нарушений нет <:MiyanoYey:672534850066055191>')
+
 
 token = os.environ.get('BOT_TOKEN')
 Bot.run(str(token))
