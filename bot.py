@@ -91,7 +91,6 @@ async def video(ctx):
 @commands.has_permissions(administrator = True)
 async def moder(ctx):
     links = rntv.mat_search()
-    print(links)
     await ctx.send('Мне кажется, в этих сообщениях (всего ' + str(len(links)) + ') есть нарушения:')
     if len(links) != 0:
         for i in range(len(links)):
