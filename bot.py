@@ -14,6 +14,14 @@ from bs4 import BeautifulSoup as BS
 
 Bot = commands.Bot(command_prefix='v.')
 Bot.remove_command("help")
+now = datetime.now()
+
+@Bot.event
+async def on_command_error(self, error):
+    channel = self.channel
+    if isinstance(error, commands.CommandOnCooldown):
+        await channel.send('Эта команда была использована сосвем недавно! Вам придется подождать еше %.2f секунд <:MiyanoYey:672534850066055191>' % error.retry_after)
+    raise error
 
 #PuckHmm reaction
 @Bot.event
@@ -25,22 +33,11 @@ async def on_message(ctx):
             await ctx.add_reaction("<:PuckHmm:672534849776779302>")
     await Bot.process_commands(ctx)
 
-
-#@Bot.command()
-#async def thustrt(ctx):
-#    svd = 'none'
-#    while True:
-#        src = tavern.tavern_thread()
-#        if src != svd and src != None:
-#            await ctx.send(src)
-#            svd = src
-#        time.sleep(45)
-#    await ctx.send('empty')
 #test
 @Bot.command()
 async def help(ctx):
         emb = discord.Embed(title='Виктор', colour=0x33ccff)
-        emb.add_field(name='Версия: 0.7.4', value="\nВот что я могу:\n\npat @пользователь - погладить юзера\nvictor - арт с Виктором\nvbros - рандомный вброс с первой страницы товерны\nТакже я фанат смайла <:PuckHmm:672534849776779302> и буду ставить его под все сообщения где он есть!")
+        emb.add_field(name='Информация:', value="\nВот что я могу:\n\npat @пользователь - погладить юзера\nvictor - арт с Виктором\nТакже я фанат смайла <:PuckHmm:672534849776779302> и буду ставить его под все сообщения где он есть!")
         await ctx.send(embed = emb)
 
 #PAT
@@ -80,6 +77,28 @@ async def vbros(ctx):
     href = rntv.random_thread()
     ctxout = "Рандомный вброс с первой страницы таверны:\n" + str(href)
     await ctx.send(ctxout)
+
+#VIDEO
+@Bot.command()
+async def video(ctx):
+    await ctx.send('https://www.youtube.com/watch?v=oqR2YnmXSAY')
+
+#BAD WORDS SEARCH FOR MODERS
+@Bot.command()
+@commands.cooldown(1, 1800, commands.BucketType.user)
+@commands.has_permissions(administrator = True)
+async def moder(ctx):
+    if ctx.author != modercd:
+        links = rntv.mat_search()
+        print(links)
+        await ctx.send('Мне кажется, в этих сообщениях (всего ' + str(len(links)) + ') есть нарушения:')
+        for i in range(len(links)):
+            await ctx.send(links[i])
+            time.sleep(1)
+        time.sleep(2)
+        await ctx.send('Я нашел только это. {.author.mention}, пожалуйста, помогите мне улучшить бота! Если в сообщении действительно было нарушение - поставьте в реакции смайл <:MiyanoYey:672534850066055191>. Если нарушения не было ставьте - <:PuckHmm:672534849776779302>. Спасибо!'.format(ctx))
+    else:
+        await ctx.send('Боюсь, вы уже использовали эту команду. Вам придется подождать!')
 
 token = os.environ.get('BOT_TOKEN')
 Bot.run(str(token))
