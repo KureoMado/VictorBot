@@ -32,7 +32,7 @@ def mat_search():
             div_search = html.find_all("h3", {"class": "title"}) #выборка дивов с контентом
             post_date_raw = html.find_all("abbr", {"class": "date-time"})
             cat_chk = html.find_all("div", {"class": "meta"})
-            for dsc in range(10):
+            for dsc in range(19):
                 pdate = str(post_date_raw[dsc]['title'])
                 delta = date_pars(pdate)
                 if delta == 1:
