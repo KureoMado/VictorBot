@@ -22,7 +22,7 @@ def date_pars(pdate):
 
 def mat_search():
     #ПОИСК
-    BAD_WORDS = ['бля', 'сука', 'херня', 'дохера', 'нихера', 'нахер', 'похер', 'нахера', 'нихуя' 'хуйня', 'похуй', 'долбоеб']
+    BAD_WORDS = ['бля', 'сука', 'хер', 'херня', 'дохера', 'нихера', 'нахер', 'похер', 'нахера', 'нихуя' 'хуйня', 'похуй', 'долбоеб']
     READY_LIST = []
     for i in range(len(BAD_WORDS)):
         link = 'https://dota2.ru/forum/search?type=post&keywords='+ BAD_WORDS[i] + '&users=&date=&nodes%5B%5D=all'  # составление запроса
@@ -39,7 +39,15 @@ def mat_search():
                     cat_n = cat_chk[dsc]
                     get_cat = cat_n.select('a')
                     category = get_cat[1].text
-                    if (str(category) == 'Таверна') or (str(category) == 'Творчество') or (str(category) == 'Музыка') or (str(category) == 'Кино и сериалы') or (str(category) == 'Аниме и прочее') or (str(category) == 'Спорт') or (str(category) == 'Книги'):
+                    cat_list = [
+                    'Таверна', 'Творчество', 'Музыка',
+                    'Кино и сериалы', 'Аниме и прочее', 'Спорт',
+                    'Книги', 'Другие игры', 'Консольные игры',
+                    'League of Legends', 'MMO', 'Path of Exile',
+                    'Shooter', 'Battle Royale', 'ККИ, Автобаттлеры',
+                    'Hearthstone', 'Artifact', 'Dota Underlords'
+                    ]
+                    if str(category) in cat_list:
                         div = div_search[dsc] #Выбор ПЕРВОГО результата
                         to_check = div.select('a')
                         a = to_check[0]['href']
