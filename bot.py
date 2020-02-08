@@ -40,7 +40,7 @@ async def on_message(ctx):
 @Bot.command()
 async def help(ctx):
         emb = discord.Embed(title='Виктор', colour=0x33ccff) #Текст выводится с помощью метода Embed
-        emb.add_field(name='Информация:', value="\nВерсия: 0.9.2\n\nВот что я могу:\n\npat @пользователь - погладить юзера\nvictor - арт с Виктором\nmoder - поиск нарушений на д2ру. Кд - 45 минут\n\nТакже я фанат смайла <:PuckHmm:672534849776779302> и буду ставить его под все сообщения где он есть!")
+        emb.add_field(name='Информация:', value="\nВерсия: 0.9.2b\n\nВот что я могу:\n\npat @пользователь - погладить юзера\nvictor - арт с Виктором\nmoder - поиск нарушений на д2ру. Кд - 45 минут\n\nТакже я фанат смайла <:PuckHmm:672534849776779302> и буду ставить его под все сообщения где он есть!")
         await ctx.send(embed = emb)
 
 #PAT
@@ -83,7 +83,7 @@ async def video(ctx):
 
 #Поиск нарушений и выдача их
 @Bot.command()
-@commands.cooldown(1, 2700, commands.BucketType.guild) #Кд в 30 минут
+@commands.cooldown(1, 1800, commands.BucketType.guild) #Кд в 30 минут
 @commands.has_permissions(administrator = True) #Команду могут использовать только администраторы сервера
 async def moder(ctx):
     links = rntv.mat_search() #получение списка постов с нарушениями. Функция описана в rntv.py
