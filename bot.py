@@ -45,11 +45,8 @@ async def help(ctx):
 @Bot.command()
 async def pat(ctx, member: discord.Member):
     #RANDOM GIF AND COLOR
-    pat_number = random.randint(0, imglist.PAT_LIST_LEN)
-    color_number = random.randint(0, imglist.CLR_LIST_LEN)
-    #GIF AND COLOR SET
-    pat = imglist.PAT_LIST[pat_number]
-    color = imglist.CLR_LIST[color_number]
+    pat = imglist.PAT_LIST[random.randint(0, imglist.PAT_LIST_LEN)]
+    color = imglist.CLR_LIST[random.randint(0, imglist.CLR_LIST_LEN)]
     #EMBED
     author = str(ctx.author.display_name)
     nick = str(member.display_name)
@@ -61,12 +58,9 @@ async def pat(ctx, member: discord.Member):
 #VICTOR
 @Bot.command()
 async def victor(ctx):
-    #RANDOM GIF AND COLOR
-    v_number = random.randint(0, imglist.VICTOR_LIST_LEN)
-    clr_number = random.randint(0, imglist.CLR_LIST_LEN)
     #GIF AND COLOR SET
-    victor = imglist.VICTOR_LIST[v_number]
-    color = imglist.CLR_LIST[clr_number]
+    victor = imglist.VICTOR_LIST[random.randint(0, imglist.VICTOR_LIST_LEN)]
+    color = imglist.CLR_LIST[random.randint(0, imglist.CLR_LIST_LEN)]
     #EMBED
     emb = discord.Embed(title=' ', colour=color)
     emb.set_image(url=victor)
@@ -87,7 +81,7 @@ async def video(ctx):
 
 #BAD WORDS SEARCH FOR MODERS
 @Bot.command()
-@commands.cooldown(1, 1800, commands.BucketType.user)
+@commands.cooldown(1, 2700, commands.BucketType.guild)
 @commands.has_permissions(administrator = True)
 async def moder(ctx):
     links = rntv.mat_search()
