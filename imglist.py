@@ -34,6 +34,7 @@ VICTOR_LIST =[
 'https://media1.tenor.com/images/5b06f76004ee0c96c2251bfb47f763a9/tenor.gif?itemid=14440448',
 'https://media1.tenor.com/images/7d73df75482c6ccfe0a9a33a75b05144/tenor.gif?itemid=10157351',
 'https://media1.tenor.com/images/492c1e1860dfc74eb9648a045ba48893/tenor.gif?itemid=11794172',
+'https://sun9-64.userapi.com/c837728/v837728974/90ec/VIVxbngBns8.jpg',
 ]
 
 VICTOR_LIST_LEN = len(VICTOR_LIST) - 1
@@ -52,3 +53,6 @@ CLR_LIST = [
 ]
 
 CLR_LIST_LEN = len(CLR_LIST) - 1
+
+
+#'https://media1.tenor.com/images/492c1e1860dfc74eb9648a045ba48893/tenor.gif?itemid=11794172',

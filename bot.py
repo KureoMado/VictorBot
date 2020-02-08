@@ -17,12 +17,14 @@ Bot = commands.Bot(command_prefix='v.')
 Bot.remove_command("help")
 now = datetime.now()
 
+#Уведомление о кд на команды
 @Bot.event
 async def on_command_error(self, error):
     channel = self.channel
     if isinstance(error, commands.CommandOnCooldown):
         await channel.send('Эта команда была использована сосвем недавно! Вам придется подождать еше %.2f секунд <:MiyanoYey:672534850066055191>' % error.retry_after)
     raise error
+
 
 #PuckHmm reaction
 @Bot.event
@@ -34,23 +36,23 @@ async def on_message(ctx):
             await ctx.add_reaction("<:PuckHmm:672534849776779302>")
     await Bot.process_commands(ctx)
 
-#test
+#HELP
 @Bot.command()
 async def help(ctx):
-        emb = discord.Embed(title='Виктор', colour=0x33ccff)
-        emb.add_field(name='Информация:', value="\nВерсия: 0.9.2\n\nВот что я могу:\n\npat @пользователь - погладить юзера\nvictor - арт с Виктором\nТакже я фанат смайла <:PuckHmm:672534849776779302> и буду ставить его под все сообщения где он есть!")
+        emb = discord.Embed(title='Виктор', colour=0x33ccff) #Текст выводится с помощью метода Embed
+        emb.add_field(name='Информация:', value="\nВерсия: 0.9.2\n\nВот что я могу:\n\npat @пользователь - погладить юзера\nvictor - арт с Виктором\nmoder - поиск нарушений на д2ру. Кд - 45 минут\n\nТакже я фанат смайла <:PuckHmm:672534849776779302> и буду ставить его под все сообщения где он есть!")
         await ctx.send(embed = emb)
 
 #PAT
 @Bot.command()
 async def pat(ctx, member: discord.Member):
-    #RANDOM GIF AND COLOR
+    #Определение гифки и цвета полоски слева. Берется рандомный элемент списка из imglist
     pat = imglist.PAT_LIST[random.randint(0, imglist.PAT_LIST_LEN)]
     color = imglist.CLR_LIST[random.randint(0, imglist.CLR_LIST_LEN)]
-    #EMBED
-    author = str(ctx.author.display_name)
-    nick = str(member.display_name)
-    title = author + " гладит " + nick + " :3"
+    #EMBED метод
+    author = str(ctx.author.display_name) #Определение имени отправителя
+    nick = str(member.display_name) # Опделеление имени отправителя
+    title = author + " гладит " + nick + " :3" #Название Embed элемента
     emb = discord.Embed(title=title, colour=color)
     emb.set_image(url=pat)
     await ctx.send(embed = emb)
@@ -58,7 +60,7 @@ async def pat(ctx, member: discord.Member):
 #VICTOR
 @Bot.command()
 async def victor(ctx):
-    #GIF AND COLOR SET
+    #Определение пикчи и цвета полоски слева. Берется рандомный элемент списка из imglist
     victor = imglist.VICTOR_LIST[random.randint(0, imglist.VICTOR_LIST_LEN)]
     color = imglist.CLR_LIST[random.randint(0, imglist.CLR_LIST_LEN)]
     #EMBED
@@ -68,33 +70,32 @@ async def victor(ctx):
 
 #RANDOM THREAD
 @Bot.command()
-@commands.cooldown(1, 30, commands.BucketType.user)
 async def vbros(ctx):
+    #Функция random_thread() находится в rntv.py
     href = rntv.random_thread()
     ctxout = "Рандомный вброс с первой страницы таверны:\n" + str(href)
     await ctx.send(ctxout)
 
-#VIDEO
+#Временная команда для теста видоса
 @Bot.command()
 async def video(ctx):
     await ctx.send('https://www.youtube.com/watch?v=oqR2YnmXSAY')
 
-#BAD WORDS SEARCH FOR MODERS
+#Поиск нарушений и выдача их
 @Bot.command()
-@commands.cooldown(1, 2700, commands.BucketType.guild)
-@commands.has_permissions(administrator = True)
+@commands.cooldown(1, 2700, commands.BucketType.guild) #Кд в 30 минут
+@commands.has_permissions(administrator = True) #Команду могут использовать только администраторы сервера
 async def moder(ctx):
-    links = rntv.mat_search()
-    if len(links) != 0:
+    links = rntv.mat_search() #получение списка постов с нарушениями. Функция описана в rntv.py
+    if len(links) != 0: #Проверка на отсутствие нарушений
         await ctx.send('Мне кажется, в этих сообщениях (всего ' + str(len(links)) + ') есть нарушения:')
         for i in range(len(links)):
             await ctx.send(links[i])
             time.sleep(1)
         time.sleep(2)
-        await ctx.send('{.author.mention}, пожалуйста, помогите мне улучшить бота! Если в сообщении действительно было нарушение - поставьте в реакции смайл <:MiyanoYey:672534850066055191>. Если нарушения не было ставьте - <:PuckHmm:672534849776779302>. Если сообщениию больше 3 дней - <:GWnonMuugu:672538535341064252>. Если сообщение не из наших разделов - <:MiyanoWhat:672538535395590174>. Спасибо!'.format(ctx))
+        await ctx.send('{.author.mention}, пожалуйста, помогите мне улучшить бота! Если в сообщении действительно было нарушение - поставьте в реакции смайл <:MiyanoYey:672534850066055191>. Если нарушения не было ставьте - <:PuckHmm:672534849776779302>. Спасибо!'.format(ctx))
     else:
         await ctx.send('Похоже, нарушений нет <:MiyanoYey:672534850066055191>')
-
 
 token = os.environ.get('BOT_TOKEN')
 Bot.run(str(token))
