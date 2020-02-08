@@ -79,7 +79,7 @@ async def vbros(ctx):
 #Временная команда для теста видоса
 @Bot.command()
 async def video(ctx):
-    await ctx.send('https://www.youtube.com/watch?v=oqR2YnmXSAY')
+    await ctx.send('https://youtu.be/RoJsKV6-e9M')
 
 #Поиск нарушений и выдача их
 @Bot.command()
