@@ -22,7 +22,8 @@ def date_pars(pdate):
 
 def mat_search():
     #ПОИСК
-    BAD_WORDS = ['бля', 'сука', 'хер', 'херня', 'дохера', 'нихера', 'херне', 'нахер', 'похер', 'нахера', 'нихуя' 'хуйня', 'похуй', 'долбоеб', 'хохол', 'чурка', 'хач']
+    #BAD_WORDS = ['бля', 'сука', 'хер', 'херня', 'дохера', 'нихера', 'херне', 'нахер', 'похер', 'нахера', 'нихуя' 'хуйня', 'похуй', 'долбоеб', 'хохол', 'чурка', 'хач']
+    BAD_WORDS = ['бля', 'сука', '*хер*', '*хуй*', 'долбоеб', 'хохол', 'чурка', 'хач']
     READY_LIST = []
     for i in range(len(BAD_WORDS)):
         link = 'https://dota2.ru/forum/search?type=post&keywords='+ BAD_WORDS[i] + '&users=&date=&nodes%5B%5D=all'  # составление запроса
@@ -31,33 +32,33 @@ def mat_search():
         div_search = html.find_all("h3", {"class": "title"}) #выборка дивов с контентом
         post_date_raw = html.find_all("abbr", {"class": "date-time"})
         cat_chk = html.find_all("div", {"class": "meta"})
+        print(len(div_search))
         if div_search != 0:
+            print("div_search =" + str(len(div_search)))
             for dsc in range(len(div_search)):
-                try:
-                    pdate = str(post_date_raw[dsc]['title'])
-                    delta = date_pars(pdate)
-                    if delta == 1:
-                        cat_n = cat_chk[dsc]
-                        get_cat = cat_n.select('a')
-                        category = get_cat[1].text
-                        cat_list = [
-                        'Таверна', 'Творчество', 'Музыка',
-                        'Кино и сериалы', 'Аниме и прочее', 'Спорт',
-                        'Книги', 'Другие игры', 'Консольные игры',
-                        'League of Legends', 'MMO', 'Path of Exile',
-                        'Shooter', 'Battle Royale', 'ККИ, Автобаттлеры',
-                        'Hearthstone', 'Artifact', 'Dota Underlords'
-                        ]
-                        if str(category) in cat_list:
-                            div = div_search[dsc]
-                            to_check = div.select('a')
-                            a = to_check[0]['href']
-                            violation = BAD_WORDS[i]
-                            f_link = 'Возможное нарушение: ' + str(violation) + '\nhttps://dota2.ru/forum/' + str(a)
-                            READY_LIST.append(f_link)
-                    i += 1
-                except:
-                    i += 1
+                pdate = str(post_date_raw[dsc]['title'])
+                delta = date_pars(pdate)
+                if delta == 1:
+                    print("Проверяю раздел")
+                    cat_n = cat_chk[dsc]
+                    get_cat = cat_n.select('a')
+                    category = get_cat[1].text
+                    cat_list = [
+                    'Таверна', 'Творчество', 'Музыка',
+                    'Кино и сериалы', 'Аниме и прочее', 'Спорт',
+                    'Книги', 'Другие игры', 'Консольные игры',
+                    'League of Legends', 'MMO', 'Path of Exile',
+                    'Shooter', 'Battle Royale', 'ККИ, Автобаттлеры',
+                    'Hearthstone', 'Artifact', 'Dota Underlords'
+                    ]
+                    if str(category) in cat_list:
+                        print("Раздел проверен, и соответствует.")
+                        div = div_search[dsc]
+                        to_check = div.select('a')
+                        a = to_check[0]['href']
+                        violation = BAD_WORDS[i]
+                        f_link = 'Возможное нарушение: ' + str(violation) + '\nhttps://dota2.ru/forum/' + str(a)
+                        READY_LIST.append(f_link)
     return READY_LIST
 
 def random_thread():
