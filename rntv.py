@@ -33,14 +33,11 @@ def mat_search():
         div_search = html.find_all("h3", {"class": "title"}) #выборка дивов с контентом
         post_date_raw = html.find_all("abbr", {"class": "date-time"})
         cat_chk = html.find_all("div", {"class": "meta"})
-        print(len(div_search))
         if div_search != 0:
-            print("div_search =" + str(len(div_search)))
             for dsc in range(len(div_search)):
                 pdate = str(post_date_raw[dsc]['title'])
                 delta = date_pars(pdate)
                 if delta == 1:
-                    print("Проверяю раздел")
                     cat_n = cat_chk[dsc]
                     get_cat = cat_n.select('a')
                     category = get_cat[1].text
@@ -53,7 +50,6 @@ def mat_search():
                     'Hearthstone', 'Artifact', 'Dota Underlords'
                     ]
                     if str(category) in cat_list:
-                        print("Раздел проверен, и соответствует.")
                         div = div_search[dsc]
                         to_check = div.select('a')
                         a = to_check[0]['href']
