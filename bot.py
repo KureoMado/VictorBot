@@ -22,7 +22,7 @@ now = datetime.now()
 async def on_command_error(self, error):
     channel = self.channel
     if isinstance(error, commands.CommandOnCooldown):
-        await channel.send('Эта команда была использована сосвем недавно! Вам придется подождать еше %.2f секунд <:MiyanoYey:672534850066055191>' % error.retry_after)
+        await channel.send('Эта команда была использована сосвем недавно! Вам придется подождать еше %i секунд <:MiyanoYey:672534850066055191>' % error.retry_after)
     raise error
 
 
@@ -40,7 +40,7 @@ async def on_message(ctx):
 @Bot.command()
 async def help(ctx):
         emb = discord.Embed(title='Виктор', colour=0x33ccff) #Текст выводится с помощью метода Embed
-        emb.add_field(name='Информация:', value="\nВерсия: 0.9.3b\n\nВот что я могу:\n\npat @пользователь - погладить юзера\nvictor - арт с Виктором\nmoder - поиск нарушений на д2ру. Кд - 45 минут\n\nТакже я фанат смайла <:PuckHmm:672534849776779302> и буду ставить его под все сообщения где он есть!")
+        emb.add_field(name='Информация:', value="\nВерсия: 0.9.3c\n\nВот что я могу:\n\npat @пользователь - погладить юзера\nvictor - арт с Виктором\nmoder - поиск нарушений на д2ру. Кд - 45 минут\n\nТакже я фанат смайла <:PuckHmm:672534849776779302> и буду ставить его под все сообщения где он есть!")
         await ctx.send(embed = emb)
 
 #PAT
@@ -79,7 +79,8 @@ async def vbros(ctx):
 #Временная команда для теста видоса
 @Bot.command()
 async def video(ctx):
-    await ctx.send('https://youtu.be/RoJsKV6-e9M')
+    video = ['https://youtu.be/RoJsKV6-e9M', 'https://www.youtube.com/watch?v=oqR2YnmXSAY']
+    await ctx.send(video[random.randint(0,1)])
 
 #Поиск нарушений и выдача их
 @Bot.command()
