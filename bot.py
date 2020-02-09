@@ -23,7 +23,7 @@ async def on_command_error(self, error):
     channel = self.channel
     if isinstance(error, commands.CommandOnCooldown):
         awt = int(error.retry_after)
-        if awt => 60:
+        if awt >= 60:
             awt_m =  awt // 60
             await channel.send('Эта команда была использована сосвем недавно! Вам придется подождать еще %i мин. <:MiyanoYey:672534850066055191>' % awt_m)
         else:
