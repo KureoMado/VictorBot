@@ -22,8 +22,12 @@ now = datetime.now()
 async def on_command_error(self, error):
     channel = self.channel
     if isinstance(error, commands.CommandOnCooldown):
-        await channel.send('Эта команда была использована сосвем недавно! Вам придется подождать еше %i секунд <:MiyanoYey:672534850066055191>' % error.retry_after)
-    raise error
+        awt = int(error.retry_after)
+        if awt => 60:
+            awt_m =  awt // 60
+            await channel.send('Эта команда была использована сосвем недавно! Вам придется подождать еще %i мин. <:MiyanoYey:672534850066055191>' % awt_m)
+        else:
+            await channel.send('Эта команда была использована сосвем недавно! Вам придется подождать еще %i сек. <:MiyanoYey:672534850066055191>' % error.retry_after)
 
 
 #PuckHmm reaction
@@ -78,6 +82,7 @@ async def vbros(ctx):
 
 #Временная команда для теста видоса
 @Bot.command()
+@commands.cooldown(1, 10, commands.BucketType.guild)
 async def video(ctx):
     video = ['https://youtu.be/RoJsKV6-e9M', 'https://www.youtube.com/watch?v=oqR2YnmXSAY']
     await ctx.send(video[random.randint(0,1)])
