@@ -16,6 +16,7 @@ from bs4 import BeautifulSoup as BS
 Bot = commands.Bot(command_prefix='v.')
 Bot.remove_command("help")
 now = datetime.now()
+excpts = []
 
 #Уведомление о кд на команды
 @Bot.event
@@ -29,22 +30,30 @@ async def on_command_error(self, error):
         else:
             await channel.send('Эта команда была использована сосвем недавно! Вам придется подождать еще %i сек. <:MiyanoYey:672534850066055191>' % error.retry_after)
 
-
-#PuckHmm reaction
 @Bot.event
-async def on_message(ctx):
-    channel = ctx.channel
-    isbot = ctx.author.bot
-    if isbot == False:
-        if "<:PuckHmm:672534849776779302>" in ctx.content:
-            await ctx.add_reaction("<:PuckHmm:672534849776779302>")
-    await Bot.process_commands(ctx)
+async def on_raw_reaction_add(ctx):
+    global excpts
+    cid = ctx.channel_id
+    emoj = ctx.emoji
+    channel = Bot.get_channel(cid)
+    msgr = await channel.fetch_message(ctx.message_id)
+    msg = msgr.content
+    botchk = msgr.author.bot
+    st = msg.startswith('Возможное нарушение:')
+    if msg[-9:-1] in excpts:
+        pass
+    else:
+        if st == True and botchk == True and str(emoj) == '<:ShrekOMG:672538535483670549>':
+            excpts.append(msg)
+            to_send = 'Пост #' + str(msg[-9:-2]) + ' добавлен в исключения! <:MiyanoYey:672534850066055191>'
+            await channel.send(to_send)
+
 
 #HELP
 @Bot.command()
 async def help(ctx):
         emb = discord.Embed(title='Виктор', colour=0x33ccff) #Текст выводится с помощью метода Embed
-        emb.add_field(name='Информация:', value="\nВерсия: 0.9.3f\n\nВот что я могу:\n\npat @пользователь - погладить юзера\nvictor - арт с Виктором\nmoder - поиск нарушений на д2ру. Кд - 30 минут\nvbros - рандомным вброс с первой страницы таверны\n\nТакже я фанат смайла <:PuckHmm:672534849776779302> и буду ставить его под все сообщения где он есть!")
+        emb.add_field(name='Информация:', value="\nВерсия: 0.9.4a\n\nВот что я могу:\n\npat @пользователь - погладить юзера\nvictor - арт с Виктором\nmoder - поиск нарушений на д2ру. Кд - 30 минут\nvbros - рандомный вброс с 1 страницы товерны\n\nТакже я фанат смайла <:PuckHmm:672534849776779302> и буду ставить его под все сообщения где он есть!")
         await ctx.send(embed = emb)
 
 #PAT
@@ -92,14 +101,20 @@ async def video(ctx):
 @commands.cooldown(1, 1800, commands.BucketType.guild) #Кд в 30 минут
 @commands.has_permissions(administrator = True) #Команду могут использовать только администраторы сервера
 async def moder(ctx):
+    global excpts
     links = rntv.mat_search() #получение списка постов с нарушениями. Функция описана в rntv.py
     if len(links) != 0: #Проверка на отсутствие нарушений
+        if excpts != 0:
+            try:
+                links = list(set(links) - set(excpts))
+            except:
+                pass
         await ctx.send('Мне кажется, в этих сообщениях (всего ' + str(len(links)) + ') есть нарушения:')
         for i in range(len(links)):
             await ctx.send(links[i])
             time.sleep(1)
-        time.sleep(2)
-        await ctx.send('{.author.mention}, пожалуйста, помогите мне улучшить бота! Если в сообщении действительно было нарушение - поставьте в реакции смайл <:MiyanoYey:672534850066055191>. Если нарушения не было ставьте - <:PuckHmm:672534849776779302>. Спасибо!'.format(ctx))
+        time.sleep(1)
+        await ctx.send('{.author.mention}, поставьте результатам реацию: Виктор правильно выявил нарушение - <:MiyanoYey:672534850066055191>. Ошибся - <:PuckHmm:672534849776779302>. Если хотите добавить сообщение в исключения - <:ShrekOMG:672538535483670549>'.format(ctx))
     else:
         await ctx.send('Похоже, нарушений нет <:MiyanoYey:672534850066055191>')
 
