@@ -68,20 +68,6 @@ async def pat(ctx, member: discord.Member):
     emb.set_image(url=pat)
     await ctx.send(embed = emb)
 
-#PAT
-@Bot.command()
-async def pat(ctx, member: discord.Member):
-    #Определение гифки и цвета полоски слева. Берется рандомный элемент списка из imglist
-    pat = imglist.PAT_LIST[random.randint(0, imglist.PAT_LIST_LEN)]
-    color = imglist.CLR_LIST[random.randint(0, imglist.CLR_LIST_LEN)]
-    #EMBED метод
-    author = str(ctx.author.display_name) #Определение имени отправителя
-    nick = str(member.display_name) # Опделеление имени отправителя
-    title = author + " гладит " + nick + " :3" #Название Embed элемента
-    emb = discord.Embed(title=title, colour=color)
-    emb.set_image(url=pat)
-    await ctx.send(embed = emb)
-
 #MODER
 @Bot.command()
 @commands.cooldown(1, 1800, commands.BucketType.guild) #Кд в 30 минут
