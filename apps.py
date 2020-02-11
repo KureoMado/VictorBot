@@ -55,6 +55,6 @@ def d2ru_violations():
                         to_check = div.select('a')
                         a = to_check[0]['href']
                         violation = BAD_WORDS[i]
-                        f_link = 'Возможное нарушение: ' + str(violation) + '\nhttps://dota2.ru/forum/' + str(a)
+                        f_link = 'Возможное нарушение: **' + str(violation) + '**\nhttps://dota2.ru/forum/' + str(a)
                         READY_LIST.append(f_link)
     return READY_LIST
