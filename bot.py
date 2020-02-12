@@ -27,7 +27,7 @@ async def on_command_error(self, error):
         else:
             await channel.send('Эта команда была использована сосвем недавно! Вам придется подождать еще %i сек. <:HZ:672538535781335045>' % error.retry_after)
     if isinstance(error, commands.CommandNotFound):
-            await channel.send('Не знаю такую команду <:PuckHmm:672534849776779302>')
+            await channel.send('Не понимаю о чем вы <:PuckHmm:672534849776779302>')
 
 #Добавление в исключения
 @Bot.event
