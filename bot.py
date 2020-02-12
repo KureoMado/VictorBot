@@ -12,10 +12,9 @@ import apps
 from bs4 import BeautifulSoup as BS
 #VARS
 Bot = commands.Bot(command_prefix='v.')
-Bot.remove_command("help")
 now = datetime.now()
 excpts = []
-
+Bot.remove_command("help")
 #Уведомление о кд на команды
 @Bot.event
 async def on_command_error(self, error):
@@ -24,48 +23,41 @@ async def on_command_error(self, error):
         awt = int(error.retry_after)
         if awt >= 60:
             awt_m =  awt // 60
-            await channel.send('Эта команда была использована сосвем недавно! Вам придется подождать еще %i мин. <:MiyanoYey:672534850066055191>' % awt_m)
+            await channel.send('Эта команда была использована сосвем недавно! Вам придется подождать еще %i мин. <:HZ:672538535781335045>' % awt_m)
         else:
-            await channel.send('Эта команда была использована сосвем недавно! Вам придется подождать еще %i сек. <:MiyanoYey:672534850066055191>' % error.retry_after)
+            await channel.send('Эта команда была использована сосвем недавно! Вам придется подождать еще %i сек. <:HZ:672538535781335045>' % error.retry_after)
+    if isinstance(error, commands.CommandNotFound):
+            await channel.send('Не знаю такую команду <:PuckHmm:672534849776779302>')
 
 #Добавление в исключения
 @Bot.event
 async def on_raw_reaction_add(ctx):
     global excpts
-    cid = ctx.channel_id
-    emoj = ctx.emoji
-    channel = Bot.get_channel(cid)
+    channel = Bot.get_channel(ctx.channel_id)
     msgr = await channel.fetch_message(ctx.message_id)
-    msg = msgr.content
-    botchk = msgr.author.bot
-    st = msg.startswith('Возможное нарушение:')
-    if msg[-9:-1] in excpts:
+    st = msgr.content.startswith('Возможное нарушение:')
+    if msgr.content[-9:-1] in excpts:
         pass
     else:
-        if st == True and botchk == True and str(emoj) == '<:ShrekOMG:672538535483670549>':
-            excpts.append(msg)
-            to_send = 'Пост #' + str(msg[-9:-2]) + ' добавлен в исключения! <:MiyanoYey:672534850066055191>'
+        if st == True and msgr.author.bot == True and str(ctx.emoji) == '<:ShrekOMG:672538535483670549>':
+            excpts.append(msgr.content)
+            to_send = 'Пост #' + str(msgr.content[-9:-2]) + ' добавлен в исключения! <:MiyanoYey:672534850066055191>'
             await channel.send(to_send)
 
 #HELP
 @Bot.command()
 async def help(ctx):
         emb = discord.Embed(title='Виктор', colour=0x33ccff) #Текст выводится с помощью метода Embed
-        emb.add_field(name='Информация:', value="\nВерсия: 0.9.5\n\nВот что я могу:\n\npat @пользователь - погладить юзера\nmoder - поиск нарушений на д2ру. Кд - 30 минут")
+        emb.add_field(name='Информация:', value="\nВерсия: 0.9.5e\n\nВот что я могу:\n\npat @пользователь - погладить юзера <:pat2:672538535156252672>\nmoder - сами знаете что <:DankPepe:675661963640045569>")
         await ctx.send(embed = emb)
 
 #PAT
 @Bot.command()
 async def pat(ctx, member: discord.Member):
-    #Определение гифки и цвета полоски слева. Берется рандомный элемент списка из imglist
-    pat = imglist.PAT_LIST[random.randint(0, imglist.PAT_LIST_LEN)]
-    color = imglist.CLR_LIST[random.randint(0, imglist.CLR_LIST_LEN)]
     #EMBED метод
-    author = str(ctx.author.display_name) #Определение имени отправителя
-    nick = str(member.display_name) # Опделеление имени отправителя
-    title = author + " гладит " + nick + " :3" #Название Embed элемента
-    emb = discord.Embed(title=title, colour=color)
-    emb.set_image(url=pat)
+    title = str(ctx.author.display_name) + " гладит " + str(member.display_name) + " <:pat2:672538535156252672>" #Название Embed элемента
+    emb = discord.Embed(title=title, colour=imglist.CLR_LIST[random.randint(0, imglist.CLR_LIST_LEN)])
+    emb.set_image(url=imglist.PAT_LIST[random.randint(0, imglist.PAT_LIST_LEN)])
     await ctx.send(embed = emb)
 
 #MODER
