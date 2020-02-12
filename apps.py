@@ -20,7 +20,7 @@ def date_pars(pdate):
 #VIOLATIONS
 def d2ru_violations():
     #ПОИСК
-    BAD_WORDS = ['бля', 'сука', 'хер', 'дохера', 'херн*',  'нихера', '*ахер*', 'похер*', '*хуй*', 'долбоеб*', 'хохол'] #СПИСКО СЛОВ
+    BAD_WORDS = ['сука', 'хер', 'дохера', 'херн*',  'нихера', '*ахер*', 'похер*', '*хуй*', 'долбоеб*', 'хохол'] #СПИСКО СЛОВ
     READY_LIST = [] #Финальный список
     #Цикл для проверки по каждому слову из BAD_WORDS
     for i in range(len(BAD_WORDS)):
@@ -33,14 +33,9 @@ def d2ru_violations():
         #Цикл для проверки по каждому посту на странице
         if div_search != 0:
             for dsc in range(len(div_search)):
-                pdate = str(post_date_raw[dsc]['title'])
-                delta = date_pars(pdate)
-                #проверка даты
-                if delta == 1:
+                if date_pars(str(post_date_raw[dsc]['title'])) == 1:
                     #проверка раздела
-                    cat_n = cat_chk[dsc]
-                    get_cat = cat_n.select('a')
-                    category = get_cat[1].text
+                    get_cat = cat_chk[dsc].select('a')
                     cat_list = [
                     'Таверна', 'Творчество', 'Музыка',
                     'Кино и сериалы', 'Аниме и прочее', 'Спорт',
@@ -49,12 +44,9 @@ def d2ru_violations():
                     'Shooter', 'Battle Royale', 'ККИ, Автобаттлеры',
                     'Hearthstone', 'Artifact', 'Dota Underlords'
                     ]
-                    if str(category) in cat_list:
+                    if str(get_cat[1].text) in cat_list:
                         #оформление сообщения
                         div = div_search[dsc]
-                        to_check = div.select('a')
-                        a = to_check[0]['href']
-                        violation = BAD_WORDS[i]
-                        f_link = 'Возможное нарушение: **' + str(violation) + '**\nhttps://dota2.ru/forum/' + str(a)
+                        f_link = 'Возможное нарушение: **' + str(BAD_WORDS[i]) + '**\nhttps://dota2.ru/forum/' + str(div.select('a')[0]['href'])
                         READY_LIST.append(f_link)
     return READY_LIST
