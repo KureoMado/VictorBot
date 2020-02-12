@@ -76,8 +76,8 @@ async def moder(ctx):
         await ctx.send('Мне кажется, в этих сообщениях (всего ' + str(len(links)) + ') есть нарушения:')
         for i in range(len(links)):
             await ctx.send(links[i])
-            time.sleep(1)
-        time.sleep(1)
+            time.sleep(0.6)
+        time.sleep(0.6)
         await ctx.send('{.author.mention}, поставьте результатам реацию: Виктор правильно выявил нарушение - <:MiyanoYey:672534850066055191>. Ошибся - <:PuckHmm:672534849776779302>. Если хотите добавить сообщение в исключения - <:ShrekOMG:672538535483670549>'.format(ctx))
     else:
         await ctx.send('Похоже, нарушений нет <:MiyanoYey:672534850066055191>')
