@@ -16,6 +16,15 @@ now = datetime.now()
 excpts = []
 Bot.remove_command("help")
 #Уведомление о кд на команды
+
+#приветствие
+@Bot.event
+async def on_ready():
+    channel = Bot.get_channel(674776053369012234)
+    await channel.send('Бот запущен! <:MiyanoYey:672534850066055191>\nТекущая версия - 0.9.5f\nИзменения:\n-В тестовом режиме бот связан с БД\n-некоторые неиспользуемые бранные слова (предположительно используемые чаще)\n-Изменены ответы бота в команде moder\n-Добавлено уведомление о запуске бота')
+    time.sleep(2)
+    await channel.send('И еще кое что, я тестю передачу сообщений в бд, так что бот будет сохранять всю историю сообщений. Но если вы вдруг против, то поставьте <:HZ:672538535781335045> под этот пост и я не буду записыват что вы пишете.')
+
 @Bot.event
 async def on_command_error(self, error):
     channel = self.channel
@@ -48,7 +57,7 @@ async def on_raw_reaction_add(ctx):
 @Bot.command()
 async def help(ctx):
         emb = discord.Embed(title='Виктор', colour=0x33ccff) #Текст выводится с помощью метода Embed
-        emb.add_field(name='Информация:', value="\nВерсия: 0.9.5e\n\nВот что я могу:\n\npat @пользователь - погладить юзера <:pat2:672538535156252672>\nmoder - сами знаете что <:DankPepe:675661963640045569>")
+        emb.add_field(name='Информация:', value="\nВерсия: 0.9.5f\n\nВот что я могу:\n\npat @пользователь - погладить юзера <:pat2:672538535156252672>\nmoder - сами знаете что <:DankPepe:675661963640045569>")
         await ctx.send(embed = emb)
 
 #PAT
@@ -78,9 +87,9 @@ async def moder(ctx):
             await ctx.send(links[i])
             time.sleep(0.6)
         time.sleep(0.6)
-        await ctx.send('{.author.mention}, поставьте результатам реацию: Виктор правильно выявил нарушение - <:MiyanoYey:672534850066055191>. Ошибся - <:PuckHmm:672534849776779302>. Если хотите добавить сообщение в исключения - <:ShrekOMG:672538535483670549>'.format(ctx))
+        await ctx.send('На этом все <:MiyanoYey:672534850066055191>\nДобавить в исключения - <:ShrekOMG:672538535483670549>')
     else:
-        await ctx.send('Похоже, нарушений нет <:MiyanoYey:672534850066055191>')
+        await ctx.send('Я ничего не нашел <:pat:672538535164772392>')
 
 #BOT START
 token = os.environ.get('BOT_TOKEN')
