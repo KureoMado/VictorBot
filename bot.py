@@ -73,8 +73,8 @@ async def pat(ctx, member: discord.Member):
 @commands.has_permissions(administrator = True) #Команду могут использовать только администраторы сервера
 async def moder(ctx):
     global excpts
-    links = apps.d2ru_violations() #получение списка постов с нарушениями. Функция описана в apps.py
-    links = links[::-1]
+    raw_links = apps.d2ru_violations() #получение списка постов с нарушениями. Функция описана в apps.py
+    links = list(reversed(raw_links))
     if len(links) != 0: #Проверка на отсутствие нарушений
         if excpts != 0:
             try:
