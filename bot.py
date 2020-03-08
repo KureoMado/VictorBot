@@ -21,7 +21,7 @@ Bot.remove_command("help")
 @Bot.event
 async def on_ready():
     channel = Bot.get_channel(674776053369012234)
-    await channel.send('Бот запущен! <:MiyanoYey:672534850066055191>\nТекущая версия - 0.9.5f\n\nИзменения:\n-В тестовом режиме бот связан с БД\n-некоторые неиспользуемые бранные слова заменены (на предположительно используемые чаще)\n-Изменены ответы бота в команде moder\n-Добавлено уведомление о запуске бота')
+    await channel.send('Бот запущен! <:MiyanoYey:672534850066055191>\nТекущая версия - 0.9.5g\n\nИзменения:\n -Сообщения теперь указываются по хронологии (т.е. цитаты сообщения с нарушением будут отображаться после, а не до как раньше)')
 
 @Bot.event
 async def on_command_error(self, error):
@@ -74,6 +74,7 @@ async def pat(ctx, member: discord.Member):
 async def moder(ctx):
     global excpts
     links = apps.d2ru_violations() #получение списка постов с нарушениями. Функция описана в apps.py
+    links = links[::-1]
     if len(links) != 0: #Проверка на отсутствие нарушений
         if excpts != 0:
             try:
