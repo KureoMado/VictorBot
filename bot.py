@@ -21,7 +21,7 @@ Bot.remove_command("help")
 @Bot.event
 async def on_ready():
     channel = Bot.get_channel(674776053369012234)
-    await channel.send('Бот запущен! <:MiyanoYey:672534850066055191>\nТекущая версия - 0.9.5g\n\nИзменения:\n -Сообщения теперь указываются по хронологии (т.е. цитаты сообщения с нарушением будут отображаться после, а не до как раньше)')
+    await channel.send('Бот запущен! <:MiyanoYey:672534850066055191>\nТекущая версия - 0.9.5e\n\nИзменения:\n -Улучшена точность поиска')
 
 @Bot.event
 async def on_command_error(self, error):
@@ -73,8 +73,7 @@ async def pat(ctx, member: discord.Member):
 @commands.has_permissions(administrator = True) #Команду могут использовать только администраторы сервера
 async def moder(ctx):
     global excpts
-    raw_links = apps.d2ru_violations() #получение списка постов с нарушениями. Функция описана в apps.py
-    links = list(reversed(raw_links))
+    links = apps.d2ru_violations() #получение списка постов с нарушениями. Функция описана в apps.py
     if len(links) != 0: #Проверка на отсутствие нарушений
         if excpts != 0:
             try:
