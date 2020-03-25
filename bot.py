@@ -21,7 +21,7 @@ Bot.remove_command("help")
 @Bot.event
 async def on_ready():
     channel = Bot.get_channel(674776053369012234)
-    await channel.send('Бот запущен! <:MiyanoYey:672534850066055191>\nТекущая версия - 0.9.6\n\nИзменения:\n-Добавлена команда osnova\n-Поиск ускорен на 1 секунду\n-Добавление в исключения временно отключено')
+    await channel.send('Бот запущен! <:MiyanoYey:672534850066055191>\nТекущая версия - 0.9.6b\n\nИзменения:\n-Добавлена команда osnova\n-Поиск ускорен на 1 секунду\n-Добавление в исключения временно отключено')
 
 @Bot.event
 async def on_command_error(self, error):
@@ -75,6 +75,7 @@ async def moder(ctx):
     else:
         await ctx.send('Я ничего не нашел <:pat:672538535164772392>')
 
+@Bot.command()
 @commands.cooldown(1, 1800, commands.BucketType.guild) #Кд в 30 минут
 @commands.has_permissions(administrator = True) #Команду могут использовать только администраторы сервера
 async def osnova(ctx):
