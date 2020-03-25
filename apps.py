@@ -32,6 +32,7 @@ def d2ru_violations(d2ru_category):
     'Обмен предметами и гифтами', 'Обсуждения и цены', 'Медиа Dota 2', 'Стримы', 'Развитие портала', 'Обсуждение действий модераторов']
     }
     READY_LIST = [] #Финальный список
+    print('test1')
     #Цикл для проверки по каждому слову из BAD_WORDS
     for i in range(len(BAD_WORDS)):
         link = 'https://dota2.ru/forum/search?type=post&keywords='+ BAD_WORDS[i] + '&users=&date=&nodes%5B%5D=all'  # составление запроса
@@ -41,15 +42,18 @@ def d2ru_violations(d2ru_category):
         post_date_raw = html.find_all("abbr", {"class": "date-time"}) #поиск элемента с датой поста
         cat_chk = html.find_all("div", {"class": "meta"}) #поиск элемента с именем раздела
         #Цикл для проверки по каждому посту на странице
+        print('test2')
         if div_search != 0:
             for dsc in range(len(div_search)):
                 if date_pars(str(post_date_raw[dsc]['title'])) == 1:
                     #проверка раздела
                     get_cat = cat_chk[dsc].select('a')
+                    print('test3')
                     cat_list = CATEGORIES[d2ru_category]
                     if str(get_cat[1].text) in cat_list:
                         #оформление сообщения
                         div = div_search[dsc]
                         f_link = 'Возможное нарушение: **' + str(BAD_WORDS[i]) + '**\nhttps://dota2.ru/forum/' + str(div.select('a')[0]['href'])
                         READY_LIST.append(f_link)
+                        print('test4')
     return READY_LIST
