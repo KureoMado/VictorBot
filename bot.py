@@ -56,7 +56,7 @@ async def pat(ctx, member: discord.Member):
 @commands.cooldown(1, 1800, commands.BucketType.guild) #Кд в 30 минут
 @commands.has_permissions(administrator = True) #Команду могут использовать только администраторы сервера
 async def moder(ctx):
-    d2ru_category == 'Разное'
+    d2ru_category = 'Разное'
     links = apps.d2ru_violations(str(d2ru_category)) #получение списка постов с нарушениями. Функция описана в apps.py
     if len(links) != 0: #Проверка на отсутствие нарушений
         await ctx.send('В разделе **РАЗНОЕ** найдено (всего ' + str(len(links)) + ') нарушений:')
@@ -72,12 +72,8 @@ async def moder(ctx):
 @commands.cooldown(1, 1800, commands.BucketType.guild) #Кд в 30 минут
 @commands.has_permissions(administrator = True) #Команду могут использовать только администраторы сервера
 async def osnova(ctx):
-    d2ru_category == 'Основа'
-    print('btest')
-    await ctx.send('t')
+    d2ru_category = 'Основа'
     links = apps.d2ru_violations(str(d2ru_category)) #получение списка постов с нарушениями. Функция описана в apps.py
-    print('btest2')
-    await ctx.send('t')
     if len(links) != 0: #Проверка на отсутствие нарушений
         await ctx.send('В разделе **ОСНОВА** найдено (всего ' + str(len(links)) + ') нарушений:')
         for i in range(len(links)):
