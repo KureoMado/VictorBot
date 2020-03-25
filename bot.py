@@ -59,7 +59,7 @@ async def pat(ctx, member: discord.Member):
 async def moder(ctx):
     global excpts
     d2ru_category == 'Разное'
-    links = apps.d2ru_violations(d2ru_category) #получение списка постов с нарушениями. Функция описана в apps.py
+    links = apps.d2ru_violations(str(d2ru_category)) #получение списка постов с нарушениями. Функция описана в apps.py
     if len(links) != 0: #Проверка на отсутствие нарушений
         if excpts != 0:
             try:
@@ -81,7 +81,7 @@ async def moder(ctx):
 async def osnova(ctx):
     global excpts
     d2ru_category == 'Основа'
-    links = apps.d2ru_violations(d2ru_category) #получение списка постов с нарушениями. Функция описана в apps.py
+    links = apps.d2ru_violations(str(d2ru_category)) #получение списка постов с нарушениями. Функция описана в apps.py
     if len(links) != 0: #Проверка на отсутствие нарушений
         if excpts != 0:
             try:
