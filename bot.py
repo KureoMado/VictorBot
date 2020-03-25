@@ -81,7 +81,9 @@ async def moder(ctx):
 async def osnova(ctx):
     global excpts
     d2ru_category == 'Основа'
+    print('btest')
     links = apps.d2ru_violations(str(d2ru_category)) #получение списка постов с нарушениями. Функция описана в apps.py
+    print('btest2')
     if len(links) != 0: #Проверка на отсутствие нарушений
         if excpts != 0:
             try:
