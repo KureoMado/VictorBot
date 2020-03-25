@@ -18,7 +18,7 @@ def date_pars(pdate):
     return date_result
 
 #VIOLATIONS
-def d2ru_violations():
+def d2ru_violations(d2ru_category):
     #ПОИСК
     BAD_WORDS = ['сука', 'хер', 'херн*', '*хера', '*ахер*', 'похер*', '*хуй*', '*пизд*', 'долбоеб*'] #СПИСКО СЛОВ
     CATEGORIES = {
