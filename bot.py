@@ -16,12 +16,6 @@ now = datetime.now()
 Bot.remove_command("help")
 #Уведомление о кд на команды
 
-#приветствие
-@Bot.event
-async def on_ready():
-    channel = Bot.get_channel(674776053369012234)
-    await channel.send('Бот запущен! <:MiyanoYey:672534850066055191>\nТекущая версия - 0.9.6b\n\nИзменения:\n-Добавлена команда osnova\n-Поиск ускорен на 1 секунду\n-Добавление в исключения временно отключено')
-
 @Bot.event
 async def on_command_error(self, error):
     channel = self.channel
@@ -39,7 +33,7 @@ async def on_command_error(self, error):
 @Bot.command()
 async def help(ctx):
         emb = discord.Embed(title='Виктор', colour=0x33ccff) #Текст выводится с помощью метода Embed
-        emb.add_field(name='Информация:', value="\nВерсия: 0.9.5f\n\nВот что я могу:\n\npat @пользователь - погладить юзера <:pat2:672538535156252672>\nmoder - сами знаете что <:DankPepe:675661963640045569>")
+        emb.add_field(name='Информация:', value="\nВерсия: 0.9.6b\n\nВот что я могу:\n\npat @пользователь - погладить юзера <:pat2:672538535156252672>\nmoder и osnova - сами знаете что <:DankPepe:675661963640045569>")
         await ctx.send(embed = emb)
 
 #PAT
