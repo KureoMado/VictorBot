@@ -11,8 +11,9 @@ import imglist
 import apps
 from bs4 import BeautifulSoup as BS
 #VARS
-Bot = commands.Bot(command_prefix='v.')
+processing = False
 now = datetime.now()
+Bot = commands.Bot(command_prefix='v.')
 Bot.remove_command("help")
 #Уведомление о кд на команды
 
@@ -29,11 +30,13 @@ async def on_command_error(self, error):
     if isinstance(error, commands.CommandNotFound):
             await channel.send('Не понимаю о чем вы <:PuckHmm:672534849776779302>')
 
+#BEGIN
+
 #HELP
 @Bot.command()
 async def help(ctx):
         emb = discord.Embed(title='Виктор', colour=0x33ccff) #Текст выводится с помощью метода Embed
-        emb.add_field(name='Информация:', value="\nВерсия: 0.9.6b\n\nВот что я могу:\n\npat @пользователь - погладить юзера <:pat2:672538535156252672>\nmoder и osnova - сами знаете что <:DankPepe:675661963640045569>")
+        emb.add_field(name='Информация:', value="\nВерсия: 0.9.8\n\nВот что я могу:\n\npat @пользователь - погладить юзера <:pat2:672538535156252672>\nmoder и osnova - <:DankPepe:675661963640045569>")
         await ctx.send(embed = emb)
 
 #PAT
@@ -50,34 +53,54 @@ async def pat(ctx, member: discord.Member):
 @commands.cooldown(1, 1800, commands.BucketType.guild) #Кд в 30 минут
 @commands.has_permissions(administrator = True) #Команду могут использовать только администраторы сервера
 async def moder(ctx):
-    d2ru_category = 'Разное'
-    links = apps.d2ru_violations(str(d2ru_category)) #получение списка постов с нарушениями. Функция описана в apps.py
-    if len(links) != 0: #Проверка на отсутствие нарушений
-        await ctx.send('В разделе **РАЗНОЕ** найдено (всего ' + str(len(links)) + ') нарушений:')
-        for i in range(len(links)):
-            await ctx.send(links[i])
-            time.sleep(0.5)
-        time.sleep(0.5)
-        await ctx.send('На этом все <:MiyanoYey:672534850066055191>\nДобавить в исключения - <:ShrekOMG:672538535483670549>')
+    global processing
+    if processing == True:
+            await ctx.send('Зач используете эту команду во время osnova? <:durka:672538535235944488>')
+            moder.reset_cooldown(ctx)
     else:
-        await ctx.send('Я ничего не нашел <:pat:672538535164772392>')
+        processing = True
+        tick = datetime.now() #TIMER START
+        d2ru_category = 'Разное'
+        links = apps.d2ru_violations(str(d2ru_category)) #получение списка постов с нарушениями. Функция описана в apps.py
+        tock = datetime.now()
+        diff = tock - tick
+        if len(links) != 0: #Проверка на отсутствие нарушений
+            await ctx.send('В **других играх и разном** найдено (всего ' + str(len(links)) + ') нарушений (поиск занял ' + str(int(diff.total_seconds())) + ' сек.):')
+            for i in range(len(links)):
+                await ctx.send(links[i])
+                time.sleep(0.5)
+            time.sleep(0.5)
+            await ctx.send('На этом все <:MiyanoYey:672534850066055191>\nДобавить в исключения - <:ShrekOMG:672538535483670549>')
+        else:
+            await ctx.send('Я ничего не нашел, но поиск длился ' + str(int(diff.total_seconds())) + ' секунд <:pat:672538535164772392>')
+        processing = False
 
 @Bot.command()
 @commands.cooldown(1, 1800, commands.BucketType.guild) #Кд в 30 минут
 @commands.has_permissions(administrator = True) #Команду могут использовать только администраторы сервера
 async def osnova(ctx):
-    d2ru_category = 'Основа'
-    links = apps.d2ru_violations(str(d2ru_category)) #получение списка постов с нарушениями. Функция описана в apps.py
-    if len(links) != 0: #Проверка на отсутствие нарушений
-        await ctx.send('В разделе **ОСНОВА** найдено (всего ' + str(len(links)) + ') нарушений:')
-        for i in range(len(links)):
-            await ctx.send(links[i])
-            time.sleep(0.5)
-        time.sleep(0.5)
-        await ctx.send('На этом все <:MiyanoYey:672534850066055191>')
+    global processing
+    if processing == True:
+        await ctx.send('Зач используете эту команду во время moder? <:durka:672538535235944488>')
+        osnova.reset_cooldown(ctx)
     else:
-        await ctx.send('Я ничего не нашел <:pat:672538535164772392>')
+        processing = True
+        tick = datetime.now() #TIMER START
+        d2ru_category = 'Основа'
+        links = apps.d2ru_violations(str(d2ru_category)) #получение списка постов с нарушениями. Функция описана в apps.py
+        tock = datetime.now()
+        diff = tock - tick
+        if len(links) != 0: #Проверка на отсутствие нарушений
+            await ctx.send('В **основном** разделе найдено (всего ' + str(len(links)) + ') нарушений (поиск занял ' + str(int(diff.total_seconds())) + ' сек.):')
+            for i in range(len(links)):
+                await ctx.send(links[i])
+                time.sleep(0.5)
+            time.sleep(0.5)
+            await ctx.send('На этом все <:MiyanoYey:672534850066055191>')
+        else:
+            await ctx.send('Я ничего не нашел, но поиск длился ' + str(int(diff.total_seconds())) + ' секунд <:pat:672538535164772392>')
+        processing = False
 
-#BOT START
+#END
 token = os.environ.get('BOT_TOKEN')
 Bot.run(str(token))
