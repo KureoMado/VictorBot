@@ -2,20 +2,26 @@ import discord
 from discord import channel
 from discord.ext import commands
 from discord.ext.commands import Bot
-from datetime import datetime
 import requests
 import time
 import random
 import os
 import imglist
 import apps
+from datetime import datetime
 from bs4 import BeautifulSoup as BS
-#VARS
+#V
 processing = False
-now = datetime.now()
-Bot = commands.Bot(command_prefix='v.')
-Bot.remove_command("help")
-#Уведомление о кд на команды
+now = datetime.now() #Определение текущей даты
+Bot = commands.Bot(command_prefix='m.') #Определение префикса бота
+Bot.remove_command("help") #Удаление стандартной хелп-команды
+
+#Консольное уведомление о запуске бота
+@Bot.event
+async def on_ready():
+    print("Mengsk bot is online")
+    channel = Bot.get_channel(672075104632700948)
+    await channel.send('Менгск тут <:PepeCool:672538535298859038>')
 
 @Bot.event
 async def on_command_error(self, error):
@@ -36,7 +42,7 @@ async def on_command_error(self, error):
 @Bot.command()
 async def help(ctx):
         emb = discord.Embed(title='Виктор', colour=0x33ccff) #Текст выводится с помощью метода Embed
-        emb.add_field(name='Информация:', value="\nВерсия: 0.9.8\n\nВот что я могу:\n\npat @пользователь - погладить юзера <:pat2:672538535156252672>\nmoder и osnova - <:DankPepe:675661963640045569>")
+        emb.add_field(name='Информация:', value="\nВерсия: 0.9.5f\n\nВот что я могу:\n\npat @пользователь - погладить юзера <:pat2:672538535156252672>\nmoder и osnova- сами знаете что <:DankPepe:675661963640045569>")
         await ctx.send(embed = emb)
 
 #PAT
@@ -47,6 +53,11 @@ async def pat(ctx, member: discord.Member):
     emb = discord.Embed(title=title, colour=imglist.CLR_LIST[random.randint(0, imglist.CLR_LIST_LEN)])
     emb.set_image(url=imglist.PAT_LIST[random.randint(0, imglist.PAT_LIST_LEN)])
     await ctx.send(embed = emb)
+
+#covid
+@Bot.command()
+async def covid(ctx, member: discord.Member):
+    await ctx.send('placeholder')
 
 #MODER
 @Bot.command()
@@ -65,14 +76,14 @@ async def moder(ctx):
         tock = datetime.now()
         diff = tock - tick
         if len(links) != 0: #Проверка на отсутствие нарушений
-            await ctx.send('В **других играх и разном** найдено (всего ' + str(len(links)) + ') нарушений (поиск занял ' + str(int(diff.total_seconds())) + ' сек.):')
+            await ctx.send('Результат поиска в **других играх и разном**:\nНайдено нарушений: ' + str(len(links)) + '\nПоиск занял ' + str(int(diff.total_seconds())) + ' сек.')
             for i in range(len(links)):
                 await ctx.send(links[i])
                 time.sleep(0.5)
             time.sleep(0.5)
-            await ctx.send('На этом все <:MiyanoYey:672534850066055191>\nДобавить в исключения - <:ShrekOMG:672538535483670549>')
+            await ctx.send('На этом все <:MiyanoYey:672534850066055191>')
         else:
-            await ctx.send('Я ничего не нашел, но поиск длился ' + str(int(diff.total_seconds())) + ' секунд <:pat:672538535164772392>')
+            await ctx.send('Результат поиска в **других играх и разном**:\nНарушения не найдены <:MiyanoYey:672534850066055191> \nПоиск занял ' + str(int(diff.total_seconds())) + ' сек.')
         processing = False
 
 @Bot.command()
@@ -91,16 +102,15 @@ async def osnova(ctx):
         tock = datetime.now()
         diff = tock - tick
         if len(links) != 0: #Проверка на отсутствие нарушений
-            await ctx.send('В **основном** разделе найдено (всего ' + str(len(links)) + ') нарушений (поиск занял ' + str(int(diff.total_seconds())) + ' сек.):')
+            await ctx.send('Результат поиска по **основному** разделу:\nНайдено нарушений: ' + str(len(links)) + '\nПоиск занял ' + str(int(diff.total_seconds())) + ' сек.')
             for i in range(len(links)):
                 await ctx.send(links[i])
                 time.sleep(0.5)
             time.sleep(0.5)
             await ctx.send('На этом все <:MiyanoYey:672534850066055191>')
         else:
-            await ctx.send('Я ничего не нашел, но поиск длился ' + str(int(diff.total_seconds())) + ' секунд <:pat:672538535164772392>')
+            await ctx.send('Результат поиска по **основному** разделу:\nНарушения не найдены <:MiyanoYey:672534850066055191> \nПоиск занял ' + str(int(diff.total_seconds())) + ' сек.')
         processing = False
 
 #END
-token = os.environ.get('BOT_TOKEN')
-Bot.run(str(token))
+Bot.run('Njc2ODAzMDAyMzI1MDA4Mzk0.XkLAsg.cV-rKQc6jQjB_5TEgbjkJfZsBzE')
