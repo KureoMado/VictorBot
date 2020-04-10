@@ -2,26 +2,20 @@ import discord
 from discord import channel
 from discord.ext import commands
 from discord.ext.commands import Bot
+from datetime import datetime
 import requests
 import time
 import random
 import os
 import imglist
 import apps
-from datetime import datetime
 from bs4 import BeautifulSoup as BS
-#V
+#VARS
 processing = False
-now = datetime.now() #Определение текущей даты
-Bot = commands.Bot(command_prefix='m.') #Определение префикса бота
-Bot.remove_command("help") #Удаление стандартной хелп-команды
-
-#Консольное уведомление о запуске бота
-@Bot.event
-async def on_ready():
-    print("Mengsk bot is online")
-    channel = Bot.get_channel(672075104632700948)
-    await channel.send('Менгск тут <:PepeCool:672538535298859038>')
+now = datetime.now()
+Bot = commands.Bot(command_prefix='v.')
+Bot.remove_command("help")
+#Уведомление о кд на команды
 
 @Bot.event
 async def on_command_error(self, error):
@@ -42,7 +36,7 @@ async def on_command_error(self, error):
 @Bot.command()
 async def help(ctx):
         emb = discord.Embed(title='Виктор', colour=0x33ccff) #Текст выводится с помощью метода Embed
-        emb.add_field(name='Информация:', value="\nВерсия: 0.9.5f\n\nВот что я могу:\n\npat @пользователь - погладить юзера <:pat2:672538535156252672>\nmoder и osnova- сами знаете что <:DankPepe:675661963640045569>")
+        emb.add_field(name='Информация:', value="\nВерсия: 0.9.8b\n\nВот что я могу:\n\npat @пользователь - погладить юзера <:pat2:672538535156252672>\nmoder и osnova - <:DankPepe:675661963640045569>")
         await ctx.send(embed = emb)
 
 #PAT
@@ -53,11 +47,6 @@ async def pat(ctx, member: discord.Member):
     emb = discord.Embed(title=title, colour=imglist.CLR_LIST[random.randint(0, imglist.CLR_LIST_LEN)])
     emb.set_image(url=imglist.PAT_LIST[random.randint(0, imglist.PAT_LIST_LEN)])
     await ctx.send(embed = emb)
-
-#covid
-@Bot.command()
-async def covid(ctx, member: discord.Member):
-    await ctx.send('placeholder')
 
 #MODER
 @Bot.command()
@@ -113,4 +102,5 @@ async def osnova(ctx):
         processing = False
 
 #END
-Bot.run('Njc2ODAzMDAyMzI1MDA4Mzk0.XkLAsg.cV-rKQc6jQjB_5TEgbjkJfZsBzE')
+token = os.environ.get('BOT_TOKEN')
+Bot.run(str(token))
