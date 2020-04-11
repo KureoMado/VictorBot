@@ -56,12 +56,20 @@ def d2ru_violations(d2ru_category):
     return READY_LIST
 
 def covid():
-    countries = ['','country/russia/','country/ukraine/','country/belarus/','country/kazakhstan/']
+    countries = ['russia/','ukraine/','belarus/','kazakhstan/']
     covid_list = []
+    #WORLD
+    r = requests.get('https://www.worldometers.info/coronavirus/')
+    html = BS(r.content, "lxml")
+    wcs = html.find_all("div", {"class": "maincounter-number"}) #дивы с постом
+    for i in range(3):
+        wcr = wcs[i].select('span')[0].text.replace(',', ' ')
+        covid_list.append(wcr)
+    #COUNTRIES
     for i in range(len(countries)):
         r = requests.get('https://www.worldometers.info/coronavirus/country/' + str(countries[i]))
         html = BS(r.content, "lxml")
-        wcs = html.find_all("div", {"class": "maincounter-number"})
+        wcs = html.find_all("div", {"class": "maincounter-number"}) #дивы с постом
         for n in range(3):
             wcr = wcs[n].select('span')[0].text.replace(',', ' ')
             covid_list.append(wcr)
