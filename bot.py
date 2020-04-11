@@ -51,7 +51,7 @@ async def pat(ctx, member: discord.Member):
 @commands.cooldown(1, 60, commands.BucketType.guild)
 async def covid(ctx):
     covid = apps.covid()
-    await ctx.send('Статистика по COVID-19 (З / У / В):\n\nМир: {0} / {1} / {2}\nРоссия: {3} / {4} / {5}\nУкраина: {6} / {7} / {8}\nБеларусь: {9} / {10} / {11}\nРоссия: {12} / {13} / {14}'.format(*covid))
+    await ctx.send('Статистика по COVID-19 (З / У / В):\n\nМир: {0} / {1} / {2}\nРоссия: {3} / {4} / {5}\nУкраина: {6} / {7} / {8}\nБеларусь: {9} / {10} / {11}\nКазахстан: {12} / {13} / {14}'.format(*covid))
 
 #MODER
 @Bot.command()
