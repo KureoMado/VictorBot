@@ -54,3 +54,15 @@ def d2ru_violations(d2ru_category):
                         f_link = 'Возможное нарушение: **' + str(BAD_WORDS[i]) + '**\nhttps://dota2.ru/forum/' + str(div.select('a')[0]['href'])
                         READY_LIST.append(f_link)
     return READY_LIST
+
+def covid():
+    countries = ['','country/russia/','country/ukraine/','country/belarus/','country/kazakhstan/']
+    covid_list = []
+    for i in range(len(countries)):
+        r = requests.get('https://www.worldometers.info/coronavirus/country/' + str(countries[i]))
+        html = BS(r.content, "lxml")
+        wcs = html.find_all("div", {"class": "maincounter-number"})
+        for n in range(3):
+            wcr = wcs[n].select('span')[0].text.replace(',', ' ')
+            covid_list.append(wcr)
+    return covid_list

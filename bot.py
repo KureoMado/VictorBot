@@ -30,13 +30,11 @@ async def on_command_error(self, error):
     if isinstance(error, commands.CommandNotFound):
             await channel.send('Не понимаю о чем вы <:PuckHmm:672534849776779302>')
 
-#BEGIN
-
 #HELP
 @Bot.command()
 async def help(ctx):
         emb = discord.Embed(title='Виктор', colour=0x33ccff) #Текст выводится с помощью метода Embed
-        emb.add_field(name='Информация:', value="\nВерсия: 0.9.8b\n\nВот что я могу:\n\npat @пользователь - погладить юзера <:pat2:672538535156252672>\nmoder и osnova - <:DankPepe:675661963640045569>")
+        emb.add_field(name='Информация:', value="\nВерсия: 0.9.9a\n\nВот что я могу:\n\npat @пользователь - погладить юзера <:pat2:672538535156252672>\ncovid - статистика по COVID-19 <:durka:672538535235944488>\nmoder и osnova - <:DankPepe:675661963640045569>")
         await ctx.send(embed = emb)
 
 #PAT
@@ -48,6 +46,13 @@ async def pat(ctx, member: discord.Member):
     emb.set_image(url=imglist.PAT_LIST[random.randint(0, imglist.PAT_LIST_LEN)])
     await ctx.send(embed = emb)
 
+#covid
+@Bot.command()
+@commands.cooldown(1, 60, commands.BucketType.guild)
+async def covid(ctx):
+    covid = apps.covid()
+    await ctx.send('Статистика по COVID-19 (З / У / В):\n\nМир: {0} / {1} / {2}\nРоссия: {3} / {4} / {5}\nУкраина: {6} / {7} / {8}\nБеларусь: {9} / {10} / {11}\nРоссия: {12} / {13} / {14}'.format(*covid))
+
 #MODER
 @Bot.command()
 @commands.cooldown(1, 1800, commands.BucketType.guild) #Кд в 30 минут
@@ -55,7 +60,7 @@ async def pat(ctx, member: discord.Member):
 async def moder(ctx):
     global processing
     if processing == True:
-            await ctx.send('Зач используете эту команду во время osnova? <:durka:672538535235944488>')
+            await ctx.send('Зач используете эту команду во время **osnova**? <:durka:672538535235944488>')
             moder.reset_cooldown(ctx)
     else:
         processing = True
@@ -81,7 +86,7 @@ async def moder(ctx):
 async def osnova(ctx):
     global processing
     if processing == True:
-        await ctx.send('Зач используете эту команду во время moder? <:durka:672538535235944488>')
+        await ctx.send('Зач используете эту команду во время **moder**? <:durka:672538535235944488>')
         osnova.reset_cooldown(ctx)
     else:
         processing = True
@@ -91,7 +96,7 @@ async def osnova(ctx):
         tock = datetime.now()
         diff = tock - tick
         if len(links) != 0: #Проверка на отсутствие нарушений
-            await ctx.send('Результат поиска по **основному** разделу:\nНайдено нарушений: ' + str(len(links)) + '\nПоиск занял ' + str(int(diff.total_seconds())) + ' сек.')
+            await ctx.send('Результаты поиска по **основному** разделу:\n\nНайдено нарушений: ' + str(len(links)) + '\n\nПоиск занял ' + str(int(diff.total_seconds())) + ' сек.')
             for i in range(len(links)):
                 await ctx.send(links[i])
                 time.sleep(0.5)
