@@ -55,7 +55,7 @@ async def covid(ctx):
 
 #MODER
 @Bot.command()
-@commands.cooldown(1, 1800, commands.BucketType.guild) #Кд в 30 минут
+@commands.cooldown(1, 1800, commands.BucketType.user) #Кд в 30 минут
 @commands.has_permissions(administrator = True) #Команду могут использовать только администраторы сервера
 async def moder(ctx):
     global processing
@@ -81,7 +81,7 @@ async def moder(ctx):
         processing = False
 
 @Bot.command()
-@commands.cooldown(1, 1800, commands.BucketType.guild) #Кд в 30 минут
+@commands.cooldown(1, 1800, commands.BucketType.user) #Кд в 30 минут
 @commands.has_permissions(administrator = True) #Команду могут использовать только администраторы сервера
 async def osnova(ctx):
     global processing
