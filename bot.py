@@ -3,6 +3,7 @@ from discord import channel
 from discord.ext import commands
 from discord.ext.commands import Bot
 from datetime import datetime
+json
 import requests
 import time
 import random
@@ -17,7 +18,7 @@ Bot = commands.Bot(command_prefix='v.')
 Bot.remove_command("help")
 #Уведомление о кд на команды
 
-@Bot.event
+"""@Bot.event
 async def on_command_error(self, error):
     channel = self.channel
     if isinstance(error, commands.CommandOnCooldown):
@@ -29,6 +30,7 @@ async def on_command_error(self, error):
             await channel.send('Эта команда была использована сосвем недавно! Вам придется подождать еще %i сек. <:HZ:672538535781335045>' % error.retry_after)
     if isinstance(error, commands.CommandNotFound):
             await channel.send('Не понимаю о чем вы <:PuckHmm:672534849776779302>')
+            """
 
 @Bot.event
 async def on_raw_reaction_add(ctx):
