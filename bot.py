@@ -3,7 +3,6 @@ from discord import channel
 from discord.ext import commands
 from discord.ext.commands import Bot
 from datetime import datetime
-import json
 import requests
 import time
 import random
@@ -78,9 +77,6 @@ async def moder(ctx):
         tick = datetime.now() #TIMER START
         d2ru_category = 'Разное'
         links = apps.d2ru_violations(str(d2ru_category)) #получение списка постов с нарушениями. Функция описана в apps.py
-        with open("excp.json", "r") as read_file:
-            data = json.load(read_file)
-        links = list(set(links) - set(data))
         tock = datetime.now()
         diff = tock - tick
         if len(links) != 0: #Проверка на отсутствие нарушений
