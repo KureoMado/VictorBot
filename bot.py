@@ -18,7 +18,7 @@ Bot = commands.Bot(command_prefix='v.')
 Bot.remove_command("help")
 #Уведомление о кд на команды
 
-"""@Bot.event
+@Bot.event
 async def on_command_error(self, error):
     channel = self.channel
     if isinstance(error, commands.CommandOnCooldown):
@@ -30,25 +30,16 @@ async def on_command_error(self, error):
             await channel.send('Эта команда была использована сосвем недавно! Вам придется подождать еще %i сек. <:HZ:672538535781335045>' % error.retry_after)
     if isinstance(error, commands.CommandNotFound):
             await channel.send('Не понимаю о чем вы <:PuckHmm:672534849776779302>')
-            """
 
-@Bot.event
+"""@Bot.event
 async def on_raw_reaction_add(ctx):
     global excpts
     channel = Bot.get_channel(ctx.channel_id)
     msgr = await channel.fetch_message(ctx.message_id)
     st = msgr.content.startswith('Возможное нарушение:')
     if st == True and msgr.author.bot == True and str(ctx.emoji) == '<:ShrekOMG:672538535483670549>':
-        #Запись исключения в JSON
-        violation_msg = [str(msgr.content)]
-        with open("excp.json", "r") as read_file:
-            data = json.load(read_file)
-        serial = data + violation_msg
-        with open("excp.json", "w") as write_file:
-            json.dump(serial, write_file)
-        #ЗАПИСАНО
         to_send = 'Пост #' + str(msgr.content[-9:-2]) + ' добавлен в исключения! <:MiyanoYey:672534850066055191>'
-        await channel.send(to_send)
+        await channel.send(to_send)"""
 
 #HELP
 @Bot.command()
