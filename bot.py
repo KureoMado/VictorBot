@@ -17,18 +17,36 @@ Bot = commands.Bot(command_prefix='v.')
 Bot.remove_command("help")
 #Уведомление о кд на команды
 
-#@Bot.event
-#async def on_command_error(self, error):
-#    channel = self.channel
-#    if isinstance(error, commands.CommandOnCooldown):
-#        awt = int(error.retry_after)
-#        if awt >= 60:
-#            awt_m =  awt // 60
-#            await channel.send('Эта команда была использована сосвем недавно! Вам придется подождать еще %i мин. <:HZ:672538535781335045>' % awt_m)
-#        else:
-#            await channel.send('Эта команда была использована сосвем недавно! Вам придется подождать еще %i сек. <:HZ:672538535781335045>' % error.retry_after)
-#    if isinstance(error, commands.CommandNotFound):
-#            await channel.send('Не понимаю о чем вы <:PuckHmm:672534849776779302>')
+@Bot.event
+async def on_command_error(self, error):
+    channel = self.channel
+    if isinstance(error, commands.CommandOnCooldown):
+        awt = int(error.retry_after)
+        if awt >= 60:
+            awt_m =  awt // 60
+            await channel.send('Эта команда была использована сосвем недавно! Вам придется подождать еще %i мин. <:HZ:672538535781335045>' % awt_m)
+        else:
+            await channel.send('Эта команда была использована сосвем недавно! Вам придется подождать еще %i сек. <:HZ:672538535781335045>' % error.retry_after)
+    if isinstance(error, commands.CommandNotFound):
+            await channel.send('Не понимаю о чем вы <:PuckHmm:672534849776779302>')
+
+@Bot.event
+async def on_raw_reaction_add(ctx):
+    global excpts
+    channel = Bot.get_channel(ctx.channel_id)
+    msgr = await channel.fetch_message(ctx.message_id)
+    st = msgr.content.startswith('Возможное нарушение:')
+    if st == True and msgr.author.bot == True and str(ctx.emoji) == '<:ShrekOMG:672538535483670549>':
+        #Запись исключения в JSON
+        violation_msg = [str(msgr.content)]
+        with open("excp.json", "r") as read_file:
+            data = json.load(read_file)
+        serial = data + violation_msg
+        with open("excp.json", "w") as write_file:
+            json.dump(serial, write_file)
+        #ЗАПИСАНО
+        to_send = 'Пост #' + str(msgr.content[-9:-2]) + ' добавлен в исключения! <:MiyanoYey:672534850066055191>'
+        await channel.send(to_send)
 
 #HELP
 @Bot.command()
@@ -53,6 +71,10 @@ async def covid(ctx):
     covid = apps.covid()
     await ctx.send('Статистика по COVID-19 (З / У / В):\n\nМир: {0} / {1} / {2}\nРоссия: {3} / {4} / {5}\nУкраина: {6} / {7} / {8}\nБеларусь: {9} / {10} / {11}\nКазахстан: {12} / {13} / {14}'.format(*covid))
 
+#Violations list
+@Bot.command()
+async def violations()
+
 #MODER
 @Bot.command()
 @commands.cooldown(1, 1800, commands.BucketType.user) #Кд в 30 минут
@@ -67,6 +89,9 @@ async def moder(ctx):
         tick = datetime.now() #TIMER START
         d2ru_category = 'Разное'
         links = apps.d2ru_violations(str(d2ru_category)) #получение списка постов с нарушениями. Функция описана в apps.py
+        with open("excp.json", "r") as read_file:
+            data = json.load(read_file)
+        links = list(set(links) - set(data))
         tock = datetime.now()
         diff = tock - tick
         if len(links) != 0: #Проверка на отсутствие нарушений
