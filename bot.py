@@ -3,7 +3,7 @@ from discord import channel
 from discord.ext import commands
 from discord.ext.commands import Bot
 from datetime import datetime
-json
+import json
 import requests
 import time
 import random
