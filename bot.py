@@ -73,10 +73,6 @@ async def covid(ctx):
     covid = apps.covid()
     await ctx.send('Статистика по COVID-19 (З / У / В):\n\nМир: {0} / {1} / {2}\nРоссия: {3} / {4} / {5}\nУкраина: {6} / {7} / {8}\nБеларусь: {9} / {10} / {11}\nКазахстан: {12} / {13} / {14}'.format(*covid))
 
-#Violations list
-@Bot.command()
-async def violations()
-
 #MODER
 @Bot.command()
 @commands.cooldown(1, 1800, commands.BucketType.user) #Кд в 30 минут
