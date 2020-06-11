@@ -19,7 +19,6 @@ processing = False
 now = datetime.now()
 Bot = commands.Bot(command_prefix=config.PREFIX)
 Bot.remove_command("help")
-
 """
 @Bot.event
 async def on_command_error(self, error):
@@ -73,56 +72,39 @@ async def covid(ctx):
 @commands.cooldown(1, 1800, commands.BucketType.user) #Кд в 30 минут
 @commands.has_permissions(administrator = True) #Команду могут использовать только администраторы сервера
 async def moder(ctx):
-    global processing
-    if processing == True:
-            await ctx.send('Зач используете эту команду во время **osnova**? <:durka:672538535235944488>')
-            moder.reset_cooldown(ctx)
-    else:
-        processing = True
-        tick = datetime.now() #TIMER START
-        d2ru_category = 'Разное'
-        links = apps.d2ru_violations(str(d2ru_category)) #получение списка постов с нарушениями. Функция описана в apps.py
-        with open("excp.json", "r") as read_file:
-            data = json.load(read_file)
-        links = list(set(links) - set(data))
-        tock = datetime.now()
-        diff = tock - tick
-        if len(links) != 0: #Проверка на отсутствие нарушений
-            await ctx.send('Результат поиска в **других играх и разном**:\nНайдено нарушений: ' + str(len(links)) + '\nПоиск занял ' + str(int(diff.total_seconds())) + ' сек.')
-            for i in range(len(links)):
-                await ctx.send(links[i])
-                time.sleep(0.5)
+    tick = datetime.now() #TIMER START
+    d2ru_category = 'Разное'
+    links = apps.d2ru_violations(str(d2ru_category)) #получение списка постов с нарушениями. Функция описана в apps.py
+    tock = datetime.now()
+    diff = tock - tick
+    if len(links) != 0: #Проверка на отсутствие нарушений
+        await ctx.send('Результат поиска в **других играх и разном**:\nНайдено нарушений: ' + str(len(links)) + '\nПоиск занял ' + str(int(diff.total_seconds())) + ' сек.')
+        for i in range(len(links)):
+            await ctx.send(links[i])
             time.sleep(0.5)
-            await ctx.send('На этом все <:MiyanoYey:672534850066055191>')
-        else:
-            await ctx.send('Результат поиска в **других играх и разном**:\nНарушения не найдены <:MiyanoYey:672534850066055191> \nПоиск занял ' + str(int(diff.total_seconds())) + ' сек.')
-        processing = False
+        time.sleep(0.5)
+        await ctx.send('На этом все <:MiyanoYey:672534850066055191>')
+    else:
+        await ctx.send('Результат поиска в **других играх и разном**:\nНарушения не найдены <:MiyanoYey:672534850066055191> \nПоиск занял ' + str(int(diff.total_seconds())) + ' сек.')
 
 @Bot.command()
 @commands.cooldown(1, 1800, commands.BucketType.user) #Кд в 30 минут
 @commands.has_permissions(administrator = True) #Команду могут использовать только администраторы сервера
 async def osnova(ctx):
-    global processing
-    if processing == True:
-        await ctx.send('Зач используете эту команду во время **moder**? <:durka:672538535235944488>')
-        osnova.reset_cooldown(ctx)
-    else:
-        processing = True
-        tick = datetime.now() #TIMER START
-        d2ru_category = 'Основа'
-        links = apps.d2ru_violations(str(d2ru_category)) #получение списка постов с нарушениями. Функция описана в apps.py
-        tock = datetime.now()
-        diff = tock - tick
-        if len(links) != 0: #Проверка на отсутствие нарушений
-            await ctx.send('Результаты поиска по **основному** разделу:\n\nНайдено нарушений: ' + str(len(links)) + '\n\nПоиск занял ' + str(int(diff.total_seconds())) + ' сек.')
-            for i in range(len(links)):
-                await ctx.send(links[i])
-                time.sleep(0.5)
+    tick = datetime.now() #TIMER START
+    d2ru_category = 'Основа'
+    links = apps.d2ru_violations(str(d2ru_category)) #получение списка постов с нарушениями. Функция описана в apps.py
+    tock = datetime.now()
+    diff = tock - tick
+    if len(links) != 0: #Проверка на отсутствие нарушений
+        await ctx.send('Результаты поиска по **основному** разделу:\n\nНайдено нарушений: ' + str(len(links)) + '\n\nПоиск занял ' + str(int(diff.total_seconds())) + ' сек.')
+        for i in range(len(links)):
+            await ctx.send(links[i])
             time.sleep(0.5)
-            await ctx.send('На этом все <:MiyanoYey:672534850066055191>')
-        else:
-            await ctx.send('Результат поиска по **основному** разделу:\nНарушения не найдены <:MiyanoYey:672534850066055191> \nПоиск занял ' + str(int(diff.total_seconds())) + ' сек.')
-        processing = False
+        time.sleep(0.5)
+        await ctx.send('На этом все <:MiyanoYey:672534850066055191>')
+    else:
+        await ctx.send('Результат поиска по **основному** разделу:\nНарушения не найдены <:MiyanoYey:672534850066055191> \nПоиск занял ' + str(int(diff.total_seconds())) + ' сек.')
 
 #END
 tokenr = config.TOKEN
