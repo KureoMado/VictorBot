@@ -3,6 +3,8 @@ from discord import channel
 from discord.ext import commands
 from discord.ext.commands import Bot
 from datetime import datetime
+import psycopg2
+import json
 import requests
 import time
 import random
@@ -13,9 +15,8 @@ from bs4 import BeautifulSoup as BS
 #VARS
 processing = False
 now = datetime.now()
-Bot = commands.Bot(command_prefix='v.')
+Bot = commands.Bot(command_prefix=config.PREFIX)
 Bot.remove_command("help")
-#Уведомление о кд на команды
 
 @Bot.event
 async def on_command_error(self, error):
@@ -30,15 +31,16 @@ async def on_command_error(self, error):
     if isinstance(error, commands.CommandNotFound):
             await channel.send('Не понимаю о чем вы <:PuckHmm:672534849776779302>')
 
-"""@Bot.event
+@Bot.event
 async def on_raw_reaction_add(ctx):
     global excpts
     channel = Bot.get_channel(ctx.channel_id)
     msgr = await channel.fetch_message(ctx.message_id)
     st = msgr.content.startswith('Возможное нарушение:')
     if st == True and msgr.author.bot == True and str(ctx.emoji) == '<:ShrekOMG:672538535483670549>':
-        to_send = 'Пост #' + str(msgr.content[-9:-2]) + ' добавлен в исключения! <:MiyanoYey:672534850066055191>'
-        await channel.send(to_send)"""
+        apps.db_write(str(msgr.content[-9:-1]));
+        to_send = 'Пост #' + str(msgr.content[-9:-1]) + ' добавлен в исключения! <:MiyanoYey:672534850066055191>'
+        await channel.send(to_send)
 
 #HELP
 @Bot.command()
@@ -77,6 +79,9 @@ async def moder(ctx):
         tick = datetime.now() #TIMER START
         d2ru_category = 'Разное'
         links = apps.d2ru_violations(str(d2ru_category)) #получение списка постов с нарушениями. Функция описана в apps.py
+        with open("excp.json", "r") as read_file:
+            data = json.load(read_file)
+        links = list(set(links) - set(data))
         tock = datetime.now()
         diff = tock - tick
         if len(links) != 0: #Проверка на отсутствие нарушений
@@ -117,5 +122,5 @@ async def osnova(ctx):
         processing = False
 
 #END
-token = os.environ.get('BOT_TOKEN')
-Bot.run(str(token))
+tokenr = cofig.TOKEN
+Bot.run(str(tokenr))

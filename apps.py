@@ -32,7 +32,7 @@ def d2ru_violations(d2ru_category):
                 'Поиск команды для совместных игр и участия в турнирах', 'Поиск игроков для ивентов и абузов',
                 'Обмен предметами и гифтами', 'Обсуждения и цены', 'Медиа Dota 2', 'Стримы', 'Развитие портала']
     }
-    READY_LIST = [] #Финальный список
+    RAW_LIST = [] #Финальный список
     #Цикл для проверки по каждому слову из BAD_WORDS
     for i in range(len(BAD_WORDS)):
         link = 'https://dota2.ru/forum/search?type=post&keywords='+ BAD_WORDS[i] + '&users=&date=&nodes%5B%5D=all'  # составление запроса
@@ -41,6 +41,7 @@ def d2ru_violations(d2ru_category):
         div_search = html.find_all("h3", {"class": "title"}) #дивы с постом
         post_date_raw = html.find_all("abbr", {"class": "date-time"}) #поиск элемента с датой поста
         cat_chk = html.find_all("div", {"class": "meta"}) #поиск элемента с именем раздела
+
         #Цикл для проверки по каждому посту на странице
         if div_search != 0:
             for dsc in range(len(div_search)):
@@ -52,8 +53,36 @@ def d2ru_violations(d2ru_category):
                         #оформление сообщения
                         div = div_search[dsc]
                         f_link = 'Возможное нарушение: **' + str(BAD_WORDS[i]) + '**\nhttps://dota2.ru/forum/' + str(div.select('a')[0]['href'])
-                        READY_LIST.append(f_link)
-    return READY_LIST
+                        RAW_LIST.append(f_link)
+        #Проверка на исключения
+        READY_LIST = post_exc(RAW_LIST)
+
+#Запись в БД
+def db_write(post_id):
+    conn = psycopg2.connect(dbname=config.database, user=config.db_user, password=config.password, host=config.host)
+    cursor = conn.cursor()
+    cursor.execute("INSERT INTO violation_ex (Violation) VALUES ('{0}')".format(post_id))
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+#чек
+def post_exc(raw):
+    conn = psycopg2.connect(dbname=config.database, user=config.db_user, password=config.password, host=config.host)
+    cursor = conn.cursor()
+    cursor.execute("SELECT Violation FROM violation_ex;")
+    rlist = []
+    for row in cursor:
+        rlist.append(str(row)[2:-3])
+    cursor.close()
+    conn.close()
+    result = []
+    for i in range(len(raw)):
+        if raw[i][-9:-1] in rlist:
+            pass
+        else:
+            result.append(raw[i])
+    return result
 
 def covid():
     countries = ['russia/','ukraine/','belarus/','kazakhstan/']
