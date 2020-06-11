@@ -2,6 +2,7 @@ import requests
 import random
 from bs4 import BeautifulSoup as BS
 from datetime import datetime
+import config
 
 now = datetime.today()
 

@@ -1,17 +1,19 @@
+#LIBS
 import discord
 from discord import channel
 from discord.ext import commands
+from bs4 import BeautifulSoup as BS
 from discord.ext.commands import Bot
 from datetime import datetime
 import psycopg2
-import json
 import requests
 import time
 import random
 import os
+#Custom
+import config
 import imglist
 import apps
-from bs4 import BeautifulSoup as BS
 #VARS
 processing = False
 now = datetime.now()
