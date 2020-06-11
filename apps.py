@@ -1,4 +1,5 @@
 import requests
+import psycopg2
 import random
 from bs4 import BeautifulSoup as BS
 from datetime import datetime
