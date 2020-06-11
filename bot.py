@@ -20,6 +20,7 @@ now = datetime.now()
 Bot = commands.Bot(command_prefix=config.PREFIX)
 Bot.remove_command("help")
 
+"""
 @Bot.event
 async def on_command_error(self, error):
     channel = self.channel
@@ -31,7 +32,7 @@ async def on_command_error(self, error):
         else:
             await channel.send('Эта команда была использована сосвем недавно! Вам придется подождать еще %i сек. <:HZ:672538535781335045>' % error.retry_after)
     if isinstance(error, commands.CommandNotFound):
-            await channel.send('Не понимаю о чем вы <:PuckHmm:672534849776779302>')
+            await channel.send('Не понимаю о чем вы <:PuckHmm:672534849776779302>') """
 
 @Bot.event
 async def on_raw_reaction_add(ctx):
