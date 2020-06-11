@@ -58,6 +58,7 @@ def d2ru_violations(d2ru_category):
                         RAW_LIST.append(f_link)
         #Проверка на исключения
         READY_LIST = post_exc(RAW_LIST)
+        return READY_LIST
 
 #Запись в БД
 def db_write(post_id):
