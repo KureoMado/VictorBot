@@ -1,3 +1,5 @@
+import os
+
 #Bot settings
 TOKEN = os.environ.get('BOT_TOKEN')
 PREFIX = 'v.'
