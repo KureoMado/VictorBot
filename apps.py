@@ -22,7 +22,7 @@ def date_pars(pdate):
 #VIOLATIONS
 def d2ru_violations(d2ru_category):
     #ПОИСК
-    BAD_WORDS = ['сука', 'сучк*', 'хер', 'херн*', '*хера', '*ахер*', 'похер*', '*хуй*', '*пизд*', 'долбоеб*', 'долбаеб*','*аху*', 'ебат*', 'выеб*', 'уеб*', 'съеб*'] #СПИСОК СЛОВ
+    BAD_WORDS = BAD_WORDS = ['сука', 'сучк*', 'хер', 'херн*', '*хера', '*ахер*', 'похер*', '*хуй*', '*пизд*', 'долбоеб*','*аху*', 'ебат*', 'выеб*', 'уеб*', 'съеб*'] #СПИСОК СЛОВ
     CATEGORIES = {
     'Разное' : ['Таверна', 'Творчество', 'Музыка', 'Кино и сериалы', 'Аниме и прочее', 'Спорт', 'Книги', 'Другие игры',
                 'Консольные игры', 'League of Legends', 'MMO', 'Path of Exile', 'Shooter, Battle Royale', 'Valorant', 'ККИ, Автобаттлеры',
@@ -34,7 +34,7 @@ def d2ru_violations(d2ru_category):
                 'Поиск команды для совместных игр и участия в турнирах', 'Поиск игроков для ивентов и абузов',
                 'Обмен предметами и гифтами', 'Обсуждения и цены', 'Медиа Dota 2', 'Стримы', 'Развитие портала']
     }
-    RAW_LIST = [] #Финальный список
+    RAW_LIST = [] #список без исключений
     #Цикл для проверки по каждому слову из BAD_WORDS
     for i in range(len(BAD_WORDS)):
         link = 'https://dota2.ru/forum/search?type=post&keywords='+ BAD_WORDS[i] + '&users=&date=&nodes%5B%5D=all'  # составление запроса
@@ -58,7 +58,8 @@ def d2ru_violations(d2ru_category):
                         RAW_LIST.append(f_link)
         #Проверка на исключения
         READY_LIST = post_exc(RAW_LIST)
-        return READY_LIST
+
+    return READY_LIST
 
 #Запись в БД
 def db_write(post_id):
