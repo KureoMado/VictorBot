@@ -124,5 +124,5 @@ async def osnova(ctx):
         processing = False
 
 #END
-tokenr = cofig.TOKEN
+tokenr = config.TOKEN
 Bot.run(str(tokenr))
