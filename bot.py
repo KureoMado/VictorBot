@@ -53,7 +53,7 @@ async def on_raw_reaction_add(ctx):
 @Bot.command()
 async def help(ctx):
         emb = discord.Embed(title='Пий XIII', colour=0x33ccff) #Текст выводится с помощью метода Embed
-        emb.add_field(name='Информация:', value="\nВерсия: 0.9.9c\n\nВот что я могу:\n\npat @пользователь - погладить юзера <:pat2:672538535156252672>\ncovid - статистика по COVID-19 <:durka:672538535235944488>\nmoder и osnova - <:DankPepe:675661963640045569>")
+        emb.add_field(name='Информация:', value="\nВерсия: 0.9.9c\n\nВот что я могу:\n\nmoder - таверна <:MiyanoYey:672534850066055191>\nosnova - основа <:PepeClown:739146731903647846>\ntech - тех <:durka:672538535235944488>\nsuper - все разделы <:BlobTea:672538534632095764>")
         await ctx.send(embed = emb)
 
 #MODER
