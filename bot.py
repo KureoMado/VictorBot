@@ -25,7 +25,18 @@ async def on_ready():
     channel = Bot.get_channel(739121375016386682)
     await channel.send('Пий XIII был запущен')
 
-
+@Bot.event
+async def on_command_error(self, error):
+    channel = self.channel
+    if isinstance(error, commands.CommandOnCooldown):
+        awt = int(error.retry_after)
+        if awt >= 60:
+            awt_m =  awt // 60
+            await channel.send('Эта команда была использована сосвем недавно! Вам придется подождать еще %i мин. <:HZ:672538535781335045>' % awt_m)
+        else:
+            await channel.send('Эта команда была использована сосвем недавно! Вам придется подождать еще %i сек. <:HZ:672538535781335045>' % error.retry_after)
+    if isinstance(error, commands.CommandNotFound):
+            await channel.send('Не понимаю о чем вы <:PuckHmm:672534849776779302>')
 
 @Bot.event
 async def on_raw_reaction_add(ctx):

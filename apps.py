@@ -119,3 +119,30 @@ def super_violation():
     osnova_list = post_exc(osnova_list)
     tech_list = post_exc(tech_list)
     return (tavern_list, osnova_list, tech_list)
+
+#Запись в БД
+def db_write(post_id):
+    conn = psycopg2.connect(dbname=config.database, user=config.db_user, password=config.password, host=config.host)
+    cursor = conn.cursor()
+    cursor.execute("INSERT INTO violation_ex (Violation) VALUES ('{0}')".format(post_id))
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+#чек
+def post_exc(raw):
+    conn = psycopg2.connect(dbname=config.database, user=config.db_user, password=config.password, host=config.host)
+    cursor = conn.cursor()
+    cursor.execute("SELECT Violation FROM violation_ex;")
+    rlist = []
+    for row in cursor:
+        rlist.append(str(row)[2:-3])
+    cursor.close()
+    conn.close()
+    result = []
+    for i in range(len(raw)):
+        if raw[i][-9:-1] in rlist:
+            pass
+        else:
+            result.append(raw[i])
+    return result
