@@ -146,13 +146,13 @@ async def super(ctx):
     await ctx.send('<:Addsky:672537907680247828><:Addsky:672537907680247828><:Addsky:672537907680247828> ')
 
     if len(links[2]) != 0: #Проверка на отсутствие нарушений
-        await ctx.send('Результат поиска в **техническом**:\nНайдено нарушений: ' + str(len(links[2])))
+        await ctx.send('Результат поиска в **техническом разделе**:\nНайдено нарушений: ' + str(len(links[2])))
         for i in range(len(links[2])):
             await ctx.send(links[2][i])
             time.sleep(0.5)
         time.sleep(1)
     else:
-        await ctx.send('В **техническом** ничего не найдено <:ChildPepeCry:672538534493814825>')
+        await ctx.send('В **техническом разделе** ничего не найдено <:ChildPepeCry:672538534493814825>')
         time.sleep(1)
     await ctx.send('На этом все <:MiyanoYey:672534850066055191>\nПоиск занял ' + str(int(diff.total_seconds())) + ' сек.')
 
