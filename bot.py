@@ -127,7 +127,7 @@ async def super(ctx):
             await ctx.send(links[0][i])
             time.sleep(0.5)
         time.sleep(1)
-        await ctx.send('<:Addsky:672537907680247828><:Addsky:672537907680247828><:Addsky:672537907680247828> ')
+        await ctx.send('-------------------------------------')
     else:
         await ctx.send('В **других играх и разном** ничего не найдено <:ChildPepeCry:672538534493814825>')
         time.sleep(1)
@@ -138,9 +138,9 @@ async def super(ctx):
             await ctx.send(links[1][i])
             time.sleep(0.5)
         time.sleep(1)
-        await ctx.send('<:Addsky:672537907680247828><:Addsky:672537907680247828><:Addsky:672537907680247828> ')
+        await ctx.send('-------------------------------------')
     else:
-        await ctx.send('В **оснонвом разделе** ничего не найдено <:ChildPepeCry:672538534493814825>')
+        await ctx.send('В **основном разделе** ничего не найдено <:ChildPepeCry:672538534493814825>')
         time.sleep(1)
 
     if len(links[2]) != 0: #Проверка на отсутствие нарушений
