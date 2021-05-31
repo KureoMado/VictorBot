@@ -17,7 +17,7 @@ Bot.remove_command("help")
 
 @Bot.event
 async def on_message(message):
-    if message.channel.id == 207452566538289162:
+    if message.author.id == 207452566538289162 and message.channel.id != 674776053369012234 and message.channel.id != 672075104632700948:
         a = message.content
         if a == 'a' or a == 'b' or a == 'b':
             if a == 'a':
