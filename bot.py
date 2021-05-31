@@ -20,7 +20,6 @@ async def on_message(message):
     if message.author.id == 207452566538289162:
         while True:
             a = message.content
-            input(a)
             if a == 'a':
                 ch = Bot.get_channel(674776053369012234)
                 await ch.send('Добре <:PuckHmm:672534849776779302>\nУважаемые секретари <@!207452566538289162> и <@!649698119671611392>, сообщаю что актив бобов будет зачисляться до 15:00. В 17:30 начнется подсчет актива.')
