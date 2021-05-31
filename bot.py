@@ -17,7 +17,7 @@ Bot.remove_command("help")
 
 @Bot.event
 async def on_message(message):
-    if message.channel.DMChannel.id == 207452566538289162:
+    if message.channel.id == 207452566538289162:
         a = message.content
         if a == 'a' or a == 'b' or a == 'b':
             if a == 'a':
