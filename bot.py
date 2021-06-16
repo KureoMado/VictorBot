@@ -17,7 +17,7 @@ Bot.remove_command("help")
 
 @Bot.event
 async def on_message(message):
-    if message.author.id == 207452566538289162 and message.channel.id != 674776053369012234 and message.channel.id != 672075104632700948:
+    if message.author.id == 207452566538289162 and message.channel.id != 674776053369012234 and message.channel.id != 672075104632700948 and message.channel.id != 673207142450200616:
         a = message.content
         if a == 'a' or a == 'b' or a == 'b':
             if a == 'a':
@@ -40,6 +40,10 @@ async def on_message(message):
 async def aboba(ctx):
     channel = Bot.get_channel(674776053369012234)
     await channel.send('Добре <:PuckHmm:672534849776779302>\nУважаемые секретари <@!207452566538289162> и <@!649698119671611392>, сообщаю что актив бобов будет зачисляться до 15:00. В 17:30 начнется подсчет актива.')
+
+async def aboba(ctx):
+    channel = Bot.get_channel(673207142450200616)
+    await channel.send('Добре <:PuckHmm:672534849776779302>\nУважаемый главарь <@!452518735484289035>. Я - автоматизированный секретарь, провожу контрольные подсчеты актива Бобов. Мои подсчеты точны примерно на 97,5%')
 
 tokenr = config.TOKEN
 Bot.run(str(tokenr))
