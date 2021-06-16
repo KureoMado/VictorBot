@@ -19,7 +19,7 @@ Bot.remove_command("help")
 async def on_message(message):
     if message.author.id == 207452566538289162 and message.channel.id != 674776053369012234 and message.channel.id != 672075104632700948 and message.channel.id != 673207142450200616 and message.channel.id != 677159814031212564:
         a = message.content
-        if a == 'a' or a == 'b' or a == 'b':
+        if a == 'a' or a == 'b' or a == 'b' or a == 't':
             if a == 'a':
                 ch = Bot.get_channel(674776053369012234)
                 await ch.send('A B O B A')
